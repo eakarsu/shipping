@@ -1,0 +1,732 @@
+{
+  "TrackPackagesResponse": {
+    "successful": true,
+    "passedLoggedInCheck": false,
+    "errorList": [
+      {
+        "code": "0",
+        "message": "Request was successfully processed.",
+        "source": null,
+        "rootCause": null
+      }
+    ],
+    "packageList": [
+      {
+        "trackingNbr": "731571689223",
+        "trackingQualifier": "2457862000~731571689223~FX",
+        "trackingCarrierCd": "FDXE",
+        "trackingCarrierDesc": "FedEx Express",
+        "displayTrackingNbr": "731571689223",
+        "shipperCmpnyName": "",
+        "shipperName": "",
+        "shipperAddr1": "",
+        "shipperAddr2": "",
+        "shipperCity": "SVENSTRUP J",
+        "shipperStateCD": "",
+        "shipperZip": "",
+        "shipperCntryCD": "DK",
+        "shipperPhoneNbr": "",
+        "shippedBy": "",
+        "recipientCmpnyName": "",
+        "recipientName": "",
+        "recipientAddr1": "",
+        "recipientAddr2": "",
+        "recipientCity": "PINE BROOK",
+        "recipientStateCD": "NJ",
+        "recipientZip": "",
+        "recipientCntryCD": "US",
+        "recipientPhoneNbr": "",
+        "shippedTo": "",
+        "keyStatus": "Delivered",
+        "keyStatusCD": "DL",
+        "lastScanStatus": "",
+        "lastScanDateTime": "",
+        "receivedByNm": "F.GUS",
+        "subStatus": "Signed for by: F.GUS",
+        "mainStatus": "",
+        "statusBarCD": "DL",
+        "shortStatus": "",
+        "shortStatusCD": "",
+        "statusLocationAddr1": "",
+        "statusLocationAddr2": "",
+        "statusLocationCity": "PINE BROOK",
+        "statusLocationStateCD": "NJ",
+        "statusLocationZip": "",
+        "statusLocationCntryCD": "US",
+        "statusWithDetails": "Delivered: 4/19/2017 10:29 am Signed for by:F.GUS; PINE BROOK, NJ",
+        "shipDt": "2017-04-18T00:00:00-06:00",
+        "displayShipDt": "4/18/2017",
+        "displayShipTm": "",
+        "displayShipDateTime": "4/18/2017",
+        "pickupDt": "2017-04-18T16:26:00+02:00",
+        "displayPickupDt": "4/18/2017",
+        "displayPickupTm": "4:26 pm",
+        "displayPickupDateTime": "4/18/2017 4:26 pm",
+        "estDeliveryDt": "",
+        "estDeliveryTm": "",
+        "displayEstDeliveryDt": "",
+        "displayEstDeliveryTm": "",
+        "displayEstDeliveryDateTime": "",
+        "actDeliveryDt": "2017-04-19T10:29:00-04:00",
+        "displayActDeliveryDt": "4/19/2017",
+        "displayActDeliveryTm": "10:29 am",
+        "displayActDeliveryDateTime": "4/19/2017 10:29 am",
+        "tenderedDt": "2017-04-18T16:26:00+02:00",
+        "displayTenderedDt": "4/18/2017",
+        "displayTenderedTm": "4:26 pm",
+        "displayTenderedDateTime": "4/18/2017 4:26 pm",
+        "apptDeliveryDt": "",
+        "displayApptDeliveryDt": "",
+        "displayApptDeliveryTm": "",
+        "displayApptDeliveryDateTime": "",
+        "nickName": "",
+        "note": "",
+        "matchedAccountList": [
+          ""
+        ],
+        "fxfAdvanceETA": "",
+        "fxfAdvanceReason": "",
+        "fxfAdvanceStatusCode": "",
+        "fxfAdvanceStatusDesc": "",
+        "destLink": "",
+        "originLink": "",
+        "hasBillOfLadingImage": false,
+        "hasBillPresentment": false,
+        "signatureRequired": 0,
+        "totalKgsWgt": "8.3",
+        "displayTotalKgsWgt": "8.3 kgs",
+        "totalLbsWgt": "18.3",
+        "displayTotalLbsWgt": "18.3 lbs",
+        "displayTotalWgt": "18.3 lbs / 8.3 kgs",
+        "pkgKgsWgt": "8.3",
+        "displayPkgKgsWgt": "8.3 kgs",
+        "pkgLbsWgt": "18.3",
+        "displayPkgLbsWgt": "18.3 lbs",
+        "displayPkgWgt": "18.3 lbs / 8.3 kgs",
+        "totalDIMLbsWgt": "",
+        "displayTotalDIMLbsWgt": "",
+        "totalDIMKgsWgt": "",
+        "displayTotalDIMKgsWgt": "",
+        "displayTotalDIMWgt": "",
+        "dimensions": "23x16x15 in.",
+        "masterTrackingNbr": "",
+        "masterQualifier": "",
+        "masterCarrierCD": "",
+        "originalOutboundTrackingNbr": null,
+        "originalOutboundQualifier": "",
+        "originalOutboundCarrierCD": "",
+        "invoiceNbrList": [
+          ""
+        ],
+        "referenceList": [
+          ""
+        ],
+        "doorTagNbrList": [
+          ""
+        ],
+        "referenceDescList": [
+          ""
+        ],
+        "purchaseOrderNbrList": [
+          ""
+        ],
+        "billofLadingNbrList": [
+          ""
+        ],
+        "shipperRefList": [
+          "215133/120/192/1019"
+        ],
+        "rmaList": [
+          ""
+        ],
+        "deptNbrList": [
+          ""
+        ],
+        "shipmentIdList": [
+          ""
+        ],
+        "tcnList": [
+          ""
+        ],
+        "partnerCarrierNbrList": [
+          ""
+        ],
+        "hasAssociatedShipments": false,
+        "hasAssociatedReturnShipments": false,
+        "assocShpGrp": 0,
+        "drTgGrp": [
+          "0"
+        ],
+        "associationInfoList": [
+          {
+            "trackingNumberInfo": {
+              "trackingNumber": "",
+              "trackingQualifier": "",
+              "trackingCarrier": "",
+              "processingParameters": null
+            },
+            "associatedType": ""
+          }
+        ],
+        "returnReason": "",
+        "returnRelationship": null,
+        "skuItemUpcCdList": [
+          ""
+        ],
+        "receiveQtyList": [
+          ""
+        ],
+        "itemDescList": [
+          ""
+        ],
+        "partNbrList": [
+          ""
+        ],
+        "serviceCD": "INTERNATIONAL_PRIORITY",
+        "serviceDesc": "FedEx International Priority",
+        "serviceShortDesc": "IP",
+        "packageType": "YOUR_PACKAGING",
+        "packaging": "Your Packaging",
+        "clearanceDetailLink": "",
+        "showClearanceDetailLink": true,
+        "manufactureCountryCDList": [
+          ""
+        ],
+        "commodityCDList": [
+          ""
+        ],
+        "commodityDescList": [
+          ""
+        ],
+        "cerNbrList": [
+          ""
+        ],
+        "cerComplaintCDList": [
+          ""
+        ],
+        "cerComplaintDescList": [
+          ""
+        ],
+        "cerEventDateList": [
+          ""
+        ],
+        "displayCerEventDateList": [
+          ""
+        ],
+        "totalPieces": "1",
+        "specialHandlingServicesList": [
+          "Deliver Weekday"
+        ],
+        "shipmentType": "",
+        "pkgContentDesc1": "",
+        "pkgContentDesc2": "",
+        "docAWBNbr": "",
+        "originalCharges": "",
+        "transportationCD": "",
+        "transportationDesc": "",
+        "dutiesAndTaxesCD": "",
+        "dutiesAndTaxesDesc": "",
+        "origPieceCount": "",
+        "destPieceCount": "",
+        "billNoteMsg": "",
+        "goodsClassificationCD": "",
+        "receipientAddrQty": "0",
+        "deliveryAttempt": "0",
+        "codReturnTrackNbr": "",
+        "returnMovementStatus": null,
+        "scanEventList": [
+          {
+            "date": "2017-04-19",
+            "time": "10:29:00",
+            "gmtOffset": "-04:00",
+            "status": "Delivered",
+            "statusCD": "DL",
+            "scanLocation": "PINE BROOK, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": true,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "08:40:00",
+            "gmtOffset": "-04:00",
+            "status": "On FedEx vehicle for delivery",
+            "statusCD": "OD",
+            "scanLocation": "EAST HANOVER, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "08:27:00",
+            "gmtOffset": "-04:00",
+            "status": "At local FedEx facility",
+            "statusCD": "AR",
+            "scanLocation": "EAST HANOVER, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "08:27:00",
+            "gmtOffset": "-04:00",
+            "status": "At local FedEx facility",
+            "statusCD": "AR",
+            "scanLocation": "EAST HANOVER, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "07:45:00",
+            "gmtOffset": "-04:00",
+            "status": "Departed FedEx location",
+            "statusCD": "DP",
+            "scanLocation": "NEWARK, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "06:47:00",
+            "gmtOffset": "-04:00",
+            "status": "International shipment release - Import",
+            "statusCD": "CC",
+            "scanLocation": "NEWARK, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "05:36:00",
+            "gmtOffset": "-04:00",
+            "status": "Arrived at FedEx location",
+            "statusCD": "AR",
+            "scanLocation": "NEWARK, NJ",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "04:40:00",
+            "gmtOffset": "+02:00",
+            "status": "In transit",
+            "statusCD": "IT",
+            "scanLocation": "ROISSY CHARLES DE GAULLE CEDEX FR",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "04:13:00",
+            "gmtOffset": "+02:00",
+            "status": "Departed FedEx location",
+            "statusCD": "DP",
+            "scanLocation": "ROISSY CHARLES DE GAULLE CEDEX FR",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "01:38:00",
+            "gmtOffset": "+02:00",
+            "status": "In transit",
+            "statusCD": "IT",
+            "scanLocation": "ROISSY CHARLES DE GAULLE CEDEX FR",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-19",
+            "time": "00:56:00",
+            "gmtOffset": "+02:00",
+            "status": "Arrived at FedEx location",
+            "statusCD": "AR",
+            "scanLocation": "ROISSY CHARLES DE GAULLE CEDEX FR",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-18",
+            "time": "23:07:00",
+            "gmtOffset": "+02:00",
+            "status": "In transit",
+            "statusCD": "IT",
+            "scanLocation": "KASTRUP DK",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-18",
+            "time": "22:32:00",
+            "gmtOffset": "+02:00",
+            "status": "In transit",
+            "statusCD": "IT",
+            "scanLocation": "KASTRUP DK",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-18",
+            "time": "21:57:00",
+            "gmtOffset": "+02:00",
+            "status": "In transit",
+            "statusCD": "IT",
+            "scanLocation": "KASTRUP DK",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-18",
+            "time": "18:39:00",
+            "gmtOffset": "+02:00",
+            "status": "Left FedEx origin facility",
+            "statusCD": "DP",
+            "scanLocation": "STOEVRING DK",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-18",
+            "time": "09:57:07",
+            "gmtOffset": "-05:00",
+            "status": "Shipment information sent to FedEx",
+            "statusCD": "OC",
+            "scanLocation": "",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          },
+          {
+            "date": "2017-04-18",
+            "time": "16:26:00",
+            "gmtOffset": "+02:00",
+            "status": "Picked up",
+            "statusCD": "PU",
+            "scanLocation": "STOEVRING DK",
+            "scanDetails": "",
+            "scanDetailsHtml": "",
+            "rtrnShprTrkNbr": "",
+            "isException": false,
+            "isClearanceDelay": false,
+            "isDelivered": false,
+            "isDelException": false
+          }
+        ],
+        "originAddr1": "",
+        "originAddr2": "",
+        "originCity": "STOEVRING",
+        "originStateCD": "",
+        "originZip": "",
+        "originCntryCD": "DK",
+        "originLocationID": "",
+        "originTermCity": "STOEVRING",
+        "originTermStateCD": "",
+        "destLocationAddr1": "",
+        "destLocationAddr2": "",
+        "destLocationCity": "EAST HANOVER",
+        "destLocationStateCD": "NJ",
+        "destLocationZip": "",
+        "destLocationCntryCD": "US",
+        "destLocationID": "",
+        "destLocationTermCity": "EAST HANOVER",
+        "destLocationTermStateCD": "NJ",
+        "destAddr1": "",
+        "destAddr2": "",
+        "destCity": "PINE BROOK",
+        "destStateCD": "NJ",
+        "destZip": "",
+        "destCntryCD": "US",
+        "halAddr1": "",
+        "halAddr2": "",
+        "halCity": "",
+        "halStateCD": "",
+        "halZipCD": "",
+        "halCntryCD": "",
+        "actualDelAddrCity": "PINE BROOK",
+        "actualDelAddrStateCD": "NJ",
+        "actualDelAddrZipCD": "",
+        "actualDelAddrCntryCD": "US",
+        "totalTransitMiles": "",
+        "excepReasonList": [
+          ""
+        ],
+        "excepActionList": [
+          ""
+        ],
+        "exceptionReason": "",
+        "exceptionAction": "",
+        "statusDetailsList": [
+          ""
+        ],
+        "trackErrCD": "",
+        "destTZ": "-04:00",
+        "originTZ": "+02:00",
+        "isMultiStat": "0",
+        "multiStatList": [
+          {
+            "multiPiec": "",
+            "multiTm": "",
+            "multiDispTm": "",
+            "multiSta": ""
+          }
+        ],
+        "maskMessage": "",
+        "deliveryService": "",
+        "milestoDestination": "",
+        "terms": "Shipper",
+        "payorAcctNbr": "",
+        "meterNumber": "",
+        "originUbanizationCode": "",
+        "originCountryName": "",
+        "isOriginResidential": false,
+        "halUrbanizationCD": "",
+        "halCountryName": "",
+        "actualDelAddrUrbanizationCD": "",
+        "actualDelAddrCountryName": "",
+        "destUrbanizationCD": "",
+        "destCountryName": "",
+        "delToDesc": "Shipping/Receiving",
+        "recpShareID": "6dwa066nipgwvcfvjurpnep1v",
+        "shprShareID": "hhar4hdj4pi0a3ldjw2z3yo3",
+        "requestedAppointmentInfoList": [
+          {
+            "spclInstructDesc": "",
+            "delivOptn": "",
+            "delivOptnStatus": "",
+            "reqApptWdw": "",
+            "reqApptDesc": "",
+            "rerouteTRKNbr": "",
+            "beginTm": "",
+            "endTm": ""
+          }
+        ],
+        "defaultCDOType": "RTH",
+        "returnAuthorizationName": "",
+        "totalCustomsValueAmount": "",
+        "totalCustomsValueCurrency": "",
+        "packageInsuredValueAmount": "",
+        "packageInsuredValueCurrency": "",
+        "estDelTimeWindow": {
+          "estDelTmWindowStart": "",
+          "estDelTmWindowEnd": "",
+          "displayEstDelTmWindowTmStart": "",
+          "displayEstDelTmWindowTmEnd": ""
+        },
+        "standardTransitTimeWindow": {
+          "stdTransitTimeStart": "",
+          "displayStdTransitTimeStart": "",
+          "stdTransitTimeEnd": "2017-04-19T15:00:00-04:00",
+          "displayStdTransitTimeEnd": "3:00 pm"
+        },
+        "standardTransitDate": {
+          "stdTransitDate": "2017-04-19T15:00:00-04:00",
+          "displayStdTransitDate": "4/19/2017"
+        },
+        "pkgDimIn": "23x16x15 in.",
+        "pkgDimCm": "58.42x40.64x38.1 cms",
+        "returnedToShipperTrackNbr": "",
+        "commodityInfoList": [
+          {
+            "countryOfManufacture": "",
+            "harmonizedCode": "",
+            "description": ""
+          }
+        ],
+        "statusActionDesc": "",
+        "destinationGeoCoordinate": null,
+        "serviceCommitMessage": "",
+        "matched": false,
+        "fxfAdvanceNotice": true,
+        "codrequired": false,
+        "excepReasonListNoInit": [
+          ""
+        ],
+        "excepActionListNoInit": [
+          ""
+        ],
+        "statusDetailsListNoInit": [
+          ""
+        ],
+        "mpstype": "",
+        "rthavailableCD": "",
+        "isSuccessful": true,
+        "isException": false,
+        "isPrePickup": false,
+        "isPickup": false,
+        "isShipmentException": false,
+        "isClearanceDelay": false,
+        "isDelivered": true,
+        "isPending": false,
+        "isInFedExPossession": false,
+        "isReturn": false,
+        "isMPS": false,
+        "isGMPS": false,
+        "isInProgress": true,
+        "isResidential": false,
+        "isCanceled": false,
+        "isInvalid": false,
+        "errorList": [
+          {
+            "code": "",
+            "message": "",
+            "source": null,
+            "rootCause": null
+          }
+        ],
+        "isShipPickupDtLabel": true,
+        "isEstimatedDeliveryDtLabel": false,
+        "isAnticipatedShipDtLabel": false,
+        "isActualPickupLabel": false,
+        "isDelException": false,
+        "isActualDeliveryDtLabel": true,
+        "isHAL": false,
+        "isDeliveryDtLabel": false,
+        "isExpiring": false,
+        "isExpired": false,
+        "isInTransit": false,
+        "isOnSchedule": false,
+        "isOrderReceivedLabel": false,
+        "isOrderCompleteLabel": false,
+        "isDeliveryToday": false,
+        "isBeforePossessionStatus": false,
+        "isTenderedDtLabel": false,
+        "isWatch": false,
+        "isHistorical": false,
+        "isTenderedNotification": false,
+        "isDeliveredNotification": true,
+        "isExceptionNotification": false,
+        "isEstimatedDeliveryDateChangeNotification": false,
+        "isCurrentStatusNotification": false,
+        "isFSM": false,
+        "isOutboundDirection": false,
+        "isInboundDirection": false,
+        "isThirdpartyDirection": false,
+        "isUnknownDirection": false,
+        "isFreight": false,
+        "isSpod": true,
+        "isSignatureAvailable": true,
+        "isSignatureThumbnailAvailable": false,
+        "isDocumentAvailable": true,
+        "isOriginalOutBound": false,
+        "isCommodityInfoAvail": false,
+        "isDestResidential": false,
+        "isHalEligible": false,
+        "isDuplicate": false,
+        "isSave": false,
+        "isMtchdByRecShrID": false,
+        "isMtchdByShiprShrID": false,
+        "CDOExists": false,
+        "isCDOEligible": false,
+        "isReqEstDelDt": false,
+        "CDOInfoList": [
+          {
+            "spclInstructDesc": "",
+            "delivOptn": "",
+            "delivOptnStatus": "",
+            "reqApptWdw": "",
+            "reqApptDesc": "",
+            "rerouteTRKNbr": "",
+            "beginTm": "",
+            "endTm": ""
+          }
+        ],
+        "isEstDelTmWindowLabel": false,
+        "isHistoricalEDTW": false,
+        "isNonHistoricalEDTW": false,
+        "isTargetedMsg": false,
+        "isNotFound": false,
+        "isHALResidential": false,
+        "isActualDelAddrResidential": false,
+        "isCustomCritical": false,
+        "isMultipleStop": false,
+        "isFedexOfficeOnlineOrders": false,
+        "isFedexOfficeInStoreOrders": false,
+        "isShipDtLabel": false,
+        "isChildPackage": false,
+        "isParentPackage": false,
+        "isReclassifiedAsSingleShipment": false,
+        "isMaskShipper": false
+      }
+    ],
+    "alerts": null
+  }
+}

@@ -11,9 +11,14 @@ var url = require('url');
 var cheerio = require('cheerio');
 var util = require('util');
 var rp = require('request-promise');
+var Promise = require("bluebird");
+var cheerio = require("cheerio");
+var jp = require('jsonpath');
 var fedexURL = "https://www.fedex.com/fcl/logon.do";
 let fedexDownloadUrl = "https://www.fedex.com/reporting/DownloadPage.do";
 let fedexDownloadPrepareUrl = "https://www.fedex.com/reporting/StandardReports.do";
+let fedexTrackingDetails = "https://www.fedex.com/fedextrack/?tracknumbers={trackingNumber}";
+let fedexTrackPostCall = "https://www.fedex.com/trackingCal/track";
 
 var loginform = {
     "appName": "fclfsm",
@@ -76,89 +81,44 @@ let csvDownload = {
     "riID":"5065426"
 }
 
+
+let trackPostFrom = {
+    "data":'{"TrackPackagesRequest":{"appType":"WTRK","appDeviceType":"DESKTOP","uniqueKey":"","processingParameters":{},"trackingInfoList":[{"trackNumberInfo":{"trackingNumber":"{trackingNumber}","trackingQualifier":"","trackingCarrier":""}}]}}',
+    "action":"trackpackages",
+    "locale":"en_US",
+    "version":"1",
+    "format":"json"
+}
+
 let cookiesCache = {};
-function getOptionsForPost (formData,uri,res) {
-    var formData = querystring.stringify(formData);
-    var contentLength = formData.length;
-    var cookies;
-    if (res)
-        cookies = collectCookies(res);
-    else
-        cookies = cookiesCache;
 
-    let optionsforPost =
-    {
-        headers: {
-            'Content-Length': contentLength,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        resolveWithFullResponse: true,
-        uri: uri,
-        body: formData,
-        method: 'POST',
-        followRedirect: false,
-        simple: false
-    };
-    if (cookies)
-        optionsforPost.headers.Cookie = getCookie(cookies);
 
-    return optionsforPost;
-}
+let promise = getEstimatedDeliveryDateFromPost("731571689223"); //"779058840541");
+promise.then (x=>{
+    console.log (JSON.stringify(x));
+})
 
-function getOptionsForGet (uri,res) {
-    var cookies;
-    if (res)
-        cookies = collectCookies(res);
-    else
-        cookies = cookiesCache;
-    let optionsForGet =
-    {
-        headers: {
-            'Accept': "text/html"
-       },
-        resolveWithFullResponse: true,
-        uri: uri,
-        method: 'GET',
-        followRedirect: false,
-        simple: false
-    };
-    if (cookies)
-        optionsForGet.headers.Cookie = getCookie(cookies);
-    return optionsForGet
-}
+//reportDownloadProcess();
 
-loginAndSetCookie ("username", "passowrd");
-
-//new comment added
-function getCookie(inreq) {
-    var allCookies = "";
-    for (var cookieName in inreq.cookies){
-        allCookies = `${allCookies};${cookieName}=${inreq.cookies[cookieName]}`;
-    }
-    allCookies = allCookies.substring(1);
-    console.log ("cookie sent:"+allCookies);
-    return allCookies;
-};
-
-function pacerHost(req)
+function reportDownloadProcess ()
 {
-    var host = req.query.host;
-    if (host.endsWith("/")){
-        host = host.slice(0,-1);
-    }
-    return host;
+    let loginPromise = fedexLogin("mtahardware1","1907Fb1905Gs");
+    let fileDowloaded = downloadDocument(loginPromise);
+    fileDowloaded.then (res=>{
+        console.log ("I see file");
+    })
 }
 
-function loginAndSetCookie(userName,userPaswd) {
-
-    console.log("loginAndSetCookie");
-
+function fedexLogin(userName,userPaswd) {
     loginform.username = userName;
     loginform.password = userPaswd;
     let optionsforPost = getOptionsForPost(loginform,fedexURL);
-    var localCookieCash = {};
+    return rp(optionsforPost)
+}
+function downloadDocument(loginPromise) {
 
-    rp(optionsforPost).then(res=>{
+    console.log("donwloadDocument");
+    return loginPromise.then(res=>{
         let uri = "https://www.fedex.com/reporting/StandardReports.do";
         let options =  getOptionsForPost(downloadform,uri,res);
         options.headers.Referer = uri+"?action=create&standardreporttype=217"
@@ -179,8 +139,46 @@ function loginAndSetCookie(userName,userPaswd) {
     }).then (res=> {
         console.log("download completed!!");
         fs.writeFileSync("test.zip", res.body, 'binary');
+        return Promise.try(function(){
+            return res.body;
+        })
     })
 }
+
+function getEstimatedDeliveryDate (trackingNumber)
+{
+    var uri = fedexTrackingDetails;
+    uri = uri.replace (/{.*}/,trackingNumber);
+    let options =  getOptionsForGet(uri);
+    options.Referer = "https://www.google.com/";
+
+    return rp(options).then (res=>{
+        let uri = `https://www.fedex.com/apps/fedextrack/?tracknumbers=${trackingNumber}`;
+        let options =  getOptionsForGet(uri,res);
+        options.Referer = "https://www.google.com/";
+        return rp(options)
+    }).then (res=>{
+        console.log ("Got tracking detail page");
+        var $ = cheerio.load(res.body);
+    })
+};
+
+function getEstimatedDeliveryDateFromPost (trackingNumber)
+{
+    var uri = fedexTrackPostCall;
+    let form = JSON.parse(JSON.stringify(trackPostFrom));
+    form.data = form.data.replace (/\{trackingNumber\}/,trackingNumber);
+    let options =  getOptionsForPost(form,uri)
+
+    return rp(options).then (res=>{
+        let sp = JSON.parse(res.body)
+        let estimatedTime = sp.TrackPackagesResponse.packageList[0].standardTransitTimeWindow.displayStdTransitTimeEnd;
+        let estimatedDate = sp.TrackPackagesResponse.packageList[0].standardTransitDate.displayStdTransitDate;
+        return Promise.try(function(){
+            return {date:estimatedDate,time:estimatedTime};
+        })
+    })
+};
 
 function getOp (promise,localCookieCash)
 {
@@ -233,7 +231,63 @@ function collectCookies (res)
     return cookiesCache;
 }
 
-function downloadFile ()
-{
+//new comment added
+function getCookie(cookies) {
+    var allCookies = "";
+    for (var cookieName in cookies){
+        allCookies = `${allCookies};${cookieName}=${cookies[cookieName]}`;
+    }
+    allCookies = allCookies.substring(1);
+    console.log ("cookie sent:"+allCookies);
+    return allCookies;
+};
 
+function getOptionsForPost (formData,uri,res) {
+    var formData = querystring.stringify(formData);
+    var contentLength = formData.length;
+    var cookies;
+    if (res)
+        cookies = collectCookies(res);
+    else
+        cookies = cookiesCache;
+
+    let optionsforPost =
+    {
+        headers: {
+            'Content-Length': contentLength,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        resolveWithFullResponse: true,
+        uri: uri,
+        body: formData,
+        method: 'POST',
+        followRedirect: false,
+        simple: false
+    };
+    if (cookies)
+        optionsforPost.headers.Cookie = getCookie(cookies);
+
+    return optionsforPost;
+}
+
+function getOptionsForGet (uri,res) {
+    var cookies;
+    if (res)
+        cookies = collectCookies(res);
+    else
+        cookies = cookiesCache;
+    let optionsForGet =
+    {
+        headers: {
+            'Accept': "text/html"
+        },
+        resolveWithFullResponse: true,
+        uri: uri,
+        method: 'GET',
+        followRedirect: false,
+        simple: false
+    };
+    if (cookies && Object.keys(cookies).length > 0)
+        optionsForGet.headers.Cookie = getCookie(cookies);
+    return optionsForGet
 }
