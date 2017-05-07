@@ -1,0 +1,30 @@
+{
+  "name": "fedexautomation",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^2.1.5",
+    "body-parser": "~1.16.0",
+    "cheerio": "~0.20.0",
+    "cookie-parser": "~1.4.3",
+    "cors": "~2.7.1",
+    "debug": "~2.6.0",
+    "deep-equal": "^1.0.1",
+    "express": "~4.14.1",
+    "formidable": "~1.0.17",
+    "http-proxy-agent": "^1.0.0",
+    "https-proxy-agent": "^1.0.0",
+    "jade": "~1.11.0",
+    "jsdom": "^9.6.0",
+    "morgan": "~1.7.0",
+    "promise": "^7.1.1",
+    "querystring": "^0.2.0",
+    "request": "~2.69.0",
+    "request-promise": "^4.2.0",
+    "serve-favicon": "~2.3.2",
+    "shipit": "^1.0.2"
+  }
+}

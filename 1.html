@@ -1,0 +1,1197 @@
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>FedEx Reporting Online</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="FedEx Region" content="US" />
+    <meta name="wsstitle" content="Report Results page" />
+    <meta name="wssmlc" content="/US/en/FedEx/FedEx Reporting Online" />
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+</head>
+<body>
+
+<script language="JavaScript1.2" src="https://www.fedex.com/fcro/js/ajax_client.js"></script>
+<script language="JavaScript1.2" src="https://www.fedex.com/fcro/js/ajax_file_download.js"></script>
+
+<html>
+<head>
+    <style id="antiClickjack">body{display:none !important;}</style>
+</head>
+<body>
+<script type="text/javascript">
+    if (self === top) {
+        var antiClickjack = document.getElementById("antiClickjack");
+        antiClickjack.parentNode.removeChild(antiClickjack);
+    } else {
+
+        top.location = self.location;
+    }
+</script>
+</body>
+
+</html> <!-- Avert_XFS changes  -->
+
+
+
+<meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT">
+
+
+<LINK REL="stylesheet" HREF="/css/t1/global-wrapper-min.css" TYPE="text/css" id="globalCSS">
+<!--<link rel="stylesheet" href="https://www.fedex.com/fcro/fedexascend.css" type="text/css"/>-->
+<!--<link rel="stylesheet" href="/css/fedexacend30.css" />-->
+<!--<link rel="stylesheet" href="https://www.fedex.com/fcro/reporting.css" type="text/css"/>-->
+<!--<link rel="stylesheet" href="https://www.fedex.com/fcro/CXODashboard.css" type="text/css" />-->
+<!--<link rel="stylesheet" href="https://wwwdrt.idev.fedex.com/reporting/css/Fedex/temp.css" type="text/css"/>-->
+<!--<link rel="stylesheet" href="https://wwwbase.idev.fedex.com/reportingCSM/css/Fedex/temp.css" type="text/css"/>-->
+<!--<link rel="stylesheet" href="https://wwwbase.idev.fedex.com/reportingCSM/includes/fsm_common.css" type="text/css" />-->
+<!--<link rel="stylesheet" href="https://www.fedex.com/fcro/fsm_common.css" />-->
+<!--<link rel="stylesheet" href="https://wwwdrt.idev.fedex.com/reporting/includes/fsm_common.css" type="text/css"/>-->
+
+
+
+
+
+
+
+
+
+<div id="container" >
+
+    <!--Global Header-Footer Changes--Starts-->
+    <div id="fedex-header"></div>
+    <!--Global Header-Footer Changes--End-->
+    <div id="content" class="fx_clearfix" >
+        <div style="color:#FFF; margin: 0;
+	padding: 0;
+	background-color: #FFFFFF;
+	font: 11px Arial, Helvetica, Verdana, sans-serif;
+	color: #202020;
+	width:800px;">
+
+
+            <!--<link rel="stylesheet" href="https://www.fedex.com/fcro/fedexascend.css" type="text/css"/>-->
+            <!--<link rel="stylesheet" href="/css/fedexacend30.css" />-->
+            <link rel="stylesheet" href="https://www.fedex.com/fcro/reporting.css" type="text/css"/>
+            <link rel="stylesheet" href="https://www.fedex.com/fcro/CXODashboard.css" type="text/css" />
+            <!--<link rel="stylesheet" href="includes/temp.css" type="text/css"/>-->
+            <!--<link rel="stylesheet" href="https://wwwbase.idev.fedex.com/reportingCSM/includes/fsm_common.css" type="text/css" />-->
+            <!--<link rel="stylesheet" href="includes/fsm_common.css" type="text" />-->
+            <!--<link rel="stylesheet" href="https://www.fedex.com/fcro/fsm_common.css" />-->
+            <Style type="text/css">
+                /* CHANGES HAVE BEEN COMMENTED WITHIN THE CODE. */
+
+                a:link, a:active {
+                    color: #660099;
+                }
+
+                a:visited {
+                    color: #993399;
+                }
+
+                a:link.newsalert, a:active.newsalert, a:visited.newsalert {
+                    font-size: 11px;
+                    color: #FF0000;
+                }
+
+                a:link.white, a:active.white, a:visited.white {
+                    color: #FFFFFF;
+                }
+
+                /* NXGEN body */
+                /*body {
+                        margin: 0;
+                        padding: 0;
+                        background-color: #FFFFFF;
+                        font: 11px Arial, Helvetica, Verdana, sans-serif;
+                        color: #202020;
+                }
+
+                /* NXGEN h1, h2, h3, h4, h5, h6 */
+                h1, h2, h3, h4, h5, h6 {
+                    margin: 0;
+                    padding: 0;
+                    font-weight: normal;
+                }
+
+                h1 {
+                    color: #660099;
+                    font-size: 18px;
+                    margin-bottom: 10px
+                }
+
+                h2 {
+                    color: #660099;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+
+
+                /* NXGEN div, p, .content */
+                div, p, .content {
+                    margin: 0;
+                    padding: 0;
+                    color: #202020;
+                }
+
+                p {
+                    margin-bottom: 10px;
+                    padding: 0;
+                }
+
+                form {
+                    padding: 0;
+                    margin: 0;
+                }
+                .export {
+                    border: 1px solid #A5ACB2;
+                }
+
+                hr {
+                    height: 1px;
+                    width: 100%;
+                    clear: both;
+                }
+
+                ol {
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                }
+
+                ol li {
+                    margin-left: -8px;
+                }
+
+                sup {
+                    font-size: 75%;
+                }
+
+                /* NXGEN table */
+                table {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                /* NXGEN th, td */
+                th {
+                    vertical-align: top;
+                    font-size: 15px;
+                    text-align: left;
+                }
+
+                td {
+                    vertical-align: top;
+                    font-size: 11px;
+                }
+
+
+                ul {
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                    padding-left: 0px;
+                }
+
+                .afooternav {
+                    font-size: 11px;
+                    color: #660099;
+                }
+
+                .autilitynav {
+                    font-size: 11px;
+                    color: #660099;
+                }
+
+                .articleheader {
+                    font-size: 11px;
+                    color: #660099;
+                }
+
+                /* NXGEN appwrap */
+                .appwrap {
+                    float:left;
+                    border: 1px solid #666;
+                    border-top-width: 13px;
+                    width: 745px;
+                }
+
+                .appname {
+                    margin-bottom: 15px;
+                }
+
+                p.denotereqfield {
+                    /*background: transparent url(../images/Fedex/images/ascend/shared/nxgen/icon_required.gif) no-repeat 0 2px; */
+                    padding-left: 10px;
+                    margin: 0 0 5px 0;
+                    font-size: 11px;
+                }
+
+                .alertwrap {
+                    background-color: #e6e6e6;
+                    border: 1px solid #bbb;
+                    padding: 6px;
+                    font-size: 12px;
+                }
+
+                /* NXGEN form modules */
+                table.formmodule {
+                    width: 100%;
+                }
+
+                .formmodule {
+                    background-color: #F5F5F5;
+                    border: 1px solid #8B50A8;
+                }
+
+                .formmodule th {
+                    text-align: left;
+                    border-bottom: solid 2px #660099;
+                    padding: 4px 7px 4px 7px;
+                    color: #660099;
+                    font-weight: bold;
+                }
+
+                .formmodule td {
+                    vertical-align: top;
+                    padding: 4px 7px 0 7px;
+                }
+
+                .formmodule td.prompt {
+                    padding: 8px 3px 2px 16px;
+                    width: 100px;
+                }
+
+                .formmodule td.required {
+                    /*background: transparent url(../images/Fedex/images/ascend/shared/nxgen/icon_required.gif) no-repeat 6px 10px; */
+                }
+
+                .optional {
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                }
+
+                .optional th {
+                    border-bottom: solid 2px #ccc;
+                    color: #000;
+                    font-weight: normal;
+                }
+
+                .alternate th {
+                    border-bottom: none;
+                    width: 161px;
+                }
+
+                .formmodulesectionhead, h3.sectionhead {
+                    border-bottom: 1px solid #000;
+                    margin: 0 0 5px 0;
+                    paddding: 0 0 4px 0;
+                    color: #000;
+                    font-size: 13px;
+                }
+
+                .formmodulesubhead, h3.subhead {
+                    margin: 0;
+                    paddding: 0 0 4px 0;
+                    color: #000;
+                    font-size: 13px;
+                }
+
+                .formmodule .summary {
+                    font-weight: bold;
+                }
+
+                .optional .summary {
+                    font-weight: normal;
+                }
+
+                /* NXGEN Edit/Hide/Help */
+                a.edit {
+                    padding: 0 0 0 15px;
+                    background-position: center left;
+                    background-repeat: no-repeat;
+                    background-image: url(images/ascend/shared/nxgen/icon_a_edit.gif);
+                    color: #000;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+
+                a.hide {
+                    padding: 0 0 0 15px;
+                    background-position: center left;
+                    background-repeat: no-repeat;
+                    background-image: url(images/ascend/shared/nxgen/icon_a_hide.gif);
+                    color: #000;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+
+                a.helpsmall {
+                    padding: 0 0 0 15px;
+                    background-position: center left;
+                    background-repeat: no-repeat;
+                    background-image: url(images/ascend/shared/nxgen/icon_a_help_small.gif);
+                    color: #000;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+
+                a.edit:visited, a.hide:visited, a.helpsmall:visited {
+                    color: #000;
+                }
+
+
+                /* NXGEN buttons */
+                .buttonpurple {
+                    border: none;
+                    border: 1px solid #ccc;
+                    margin: 0;
+                    padding: 0;
+                    height: 20px;
+                    background: #660099 /*url(../../images/Fedex/images/ascend/shared/nxgen/bg_button_purple.gif) repeat-x*/;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 11px;
+                }
+
+                .buttongray {
+                    border: none;
+                    border: 1px solid #ccc;
+                    margin: 0;
+                    padding: 0;
+                    height: 20px;
+                    background: #666 /*url(../../images/Fedex/images/ascend/shared/nxgen/bg_button_gray.gif) repeat-x*/;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 11px;
+                }
+
+                .buttons {
+                    margin: 15px 0 15px 0;
+                    clear: both;
+                }
+
+
+                /* NXGEN form input widths */
+                input, select, textarea {
+                    font: 11px Arial, Helvetica, Verdana, sans-serif;
+                }
+
+                .textfull { width: 223px;}
+                .texthalf { width: 113px; }
+                .text1quarter { width: 53px; }
+                .text3quarters { width: 173px; }
+                .text1third { width: 73px; }
+                .text2thirds { width: 153px; }
+                .selectfull { width: 227px; }
+                .selecthalf { width: 117px; }
+                .select1quarter { width: 57px; }
+                .select3quarters { width: 177px; }
+                .select1third { width: 77px; }
+                .select2thirds { width: 157px; }
+                .textareafull { width: 223px; }
+                .textareahalf { width: 113px; }
+                .textarea1quarter { width: 53px; }
+                .textarea3quarters { width: 173px; }
+                .textarea1third { width: 73px; }
+                .textarea2thirds { width: 153px; }
+
+
+                .error {
+                    color: #FF0000;
+                    font-weight: bold;
+                }
+
+                .footertext {
+                    font-size: 11px;
+                    color: #202020;
+                }
+
+                .footnote {
+                    font-size: 70%;
+                    vertical-align: super;
+                }
+
+
+                .formtext {
+                    font-family: 'Arial', helvetica, Verdana, Sans-serif;
+                    font-size: 12px;
+                    color: #202020;
+                }
+
+                .mainheader1 {
+                    font-size: 18px;
+                    color:#660099;
+                    font-weight: normal;
+                }
+
+                .mainheader2 {
+                    font-size: 14px;
+                    color: #999999;
+                    font-weight: normal;
+                }
+
+                .nnform {
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 11px;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .nnform2 {
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 11px;
+                    padding-top: 1px;
+                    margin-top: 0;
+                    vertical-align: top;
+                }
+
+                .phonenumber {
+                    color: #660099;
+                    font-weight: bold;
+                }
+
+                /* NXGEN resultstable and resultstablegray (there is only one results table style) */
+
+                .resultstable, .resultstablegray {
+                    border-top: 1px solid #000;
+                    border-bottom: 1px solid #000;
+                    border-left: 1px solid #ccc;
+                }
+                .resultstable td, tr.resultswhite td, tr.resultswhitesmall td {
+                    padding: 2px;
+                    border-right: 1px solid #ccc;
+                    background-color: #F2F2F2;
+                }
+
+                tr.resultsgray td, tr.resultsgraysmall td, .resultstable tr.alt td  {
+                    padding: 2px;
+                    border-right: 1px solid #ccc;
+                    background-color: #E6E6E6;
+                }
+
+                .resultstable .required, .resultstablegray .required {
+                    background: #fff url(images/ascend/shared/nxgen/icon_required.gif) no-repeat 2px 5px;
+                    padding-left: 12px;
+                }
+
+                .resultstable th, .resultstablegray th, td.resultstableheader, .resultsheader {
+                    vertical-align: top;
+                    text-align: left;
+                    padding: 4px 2px 4px 2px;
+                    border-right: 1px solid #ccc;
+                    background-color: #fff;
+                    color: #202020;
+                    font-weight: bold;
+                    font-size: 11px;
+                }
+
+                .resultstable th a, .resultstablegray th a {
+                    color: #202020;
+                }
+
+                td.center {
+                    text-align: center;
+                }
+
+
+                .sidenav {
+                    font-size: 11px;
+                    line-height: normal;
+
+                }
+
+                .small {
+                    font-size: 11px;
+                }
+
+                .steps {
+                    list-style: none;
+                    margin: 5px 0 0 0;
+                    padding: 0;
+                }
+
+                .steps li {
+                    display: block;
+                    float: left;
+                    margin: 0 15px 0 0;
+                    padding-top: 0;
+                    height: 17px;
+                    font-size: 11px;
+                }
+
+                .steps li span {
+                    padding: 0 6px 0 5px;
+                    font-size: 11px;
+                }
+                .steps li.on {
+                    background: transparent url(images/ascend/shared/nxgen/icon_step_on.gif) no-repeat;
+                    color: #660099;
+                    font-weight: bold;
+                }
+                .steps li.on span {
+                    color: #fff;
+                }
+                .steps li.off {
+                    background: transparent url(images/ascend/shared/nxgen/icon_step_off.gif) no-repeat;
+                    color: #666;
+                }
+
+                .subheader1 {
+                    font-size: 12px;
+                    color:#660099;
+                    font-weight: 600;
+                }
+
+                .subheader2 {
+                    font-size: 11px;
+                    color:#660099;
+                    font-weight: 600;
+                }
+
+                .subheaderblack1 {
+                    font-size: 12px;
+                    color: #202020;
+                    font-weight: 600;
+                }
+
+                .subheaderwhite1 {
+                    font-size: 12px;
+                    color: #FFFFFF;
+                    font-weight: 600;
+                }
+                .subheaderblack2 {
+                    font-size: 12px;
+                    color: #202020;
+                    font-weight: bold;
+                    font-family: Arial, Helvetica, sans-serif;
+                }
+
+                .gutter {
+                    width: 15px;
+                    padding: 0;
+                    border: none;
+                }
+
+                table.custommodule {
+
+                }
+
+                .custommodule {
+                    background-color: #F5F5F5;
+                    border: 1px solid #8B50A8;
+                }
+
+                #bodycontent table.custommodule h2 {
+                    color: #000000;
+                }
+
+                .custommodule th {
+                    text-align: left;
+                    border-bottom: solid 2px #660099;
+                    padding: 4px 7px 4px 7px;
+                    color: #660099;
+                    font-weight: bold;
+                }
+
+                .custommodule td {
+                    vertical-align: top;
+                    padding: 4px 7px 0 7px;
+                }
+
+                .custommodule td.prompt {
+                    padding: 8px 3px 2px 16px;
+                    width: 100px;
+                }
+                ------------------------------------------------------- fsm-common.css-------------------------------------------
+
+
+
+                    /* initial styles, to remove default margin/padding across browsers */
+
+                blockquote, ul, ol, dl, address, div { margin: 0; padding: 0; }
+                form label, label { cursor: pointer; }
+                fieldset { border: none; }
+                input, select, textarea { font-size: 100%; }
+                a { color: #660099; text-decoration: underline; }
+                sup { font-size: 70%; }
+                p { margin-bottom: 10px; }
+                th { text-align: left; }
+                td p { margin-bottom: 5px; }
+                td { vertical-align: top; }
+                ol { margin: 0 0 8px 24px; }
+                /* class selector styles */
+                .access { display: none; }
+                em.alert { padding: 2px 10px 0 22px; height: 20px; background: transparent url(../_images/icon_alert.gif) no-repeat; color: #660099; font-weight: bold; font-size: 12px; }
+                p.alert { padding: 2px 10px 0 22px; height: 20px; background: transparent url(../_images/icon_alert.gif) no-repeat; color: #660099; font-weight: bold; font-size: 14px; }
+                td.alert { padding: 10px 0 2px 0; border-bottom: 1px solid #000; }
+                td.alert h3 { float: left; padding: 2px 10px 0 22px; height: 20px; background: transparent url(../_images/icon_alert.gif) no-repeat; color: #660099; font-weight: bold; font-size: 14px; }
+                td.alert p { margin: 4px 0 0 0; }
+                .error { color: #ff0000; }
+                .error_servicetype { color: #ff0000; font-weight: bold; display: none; }
+                .error_servicetype_commodity { /*color: #ff0000; font-weight: bold;*/ display: none; }
+                .pickupscheduled { border-top: 1px solid #000; padding-top: 2px; }
+                .required { background: transparent url(../_images/icon_required.gif) no-repeat 0 3px; padding-left: 10px; margin-top: 3px; }
+                .checkboxleftcol { margin-left: -3px; }
+                .popup { position: relative; }
+                .clearfields { float: right; display: block; margin: 3px 0 0 0; padding: 0; }
+                .plural { display: none; margin-left: -5px; }
+                /* plus/minus link styles */
+                .morelink { width: 9px; height: 9px; display: inline; background: transparent url(../_images/icon_plus_purple.gif) no-repeat; background-position: center left; padding-left: 15px; }
+                .lesslink { width: 9px; height: 9px; display: inline; background: transparent url(../_images/icon_minus_purple.gif) no-repeat; background-position: center left; padding-left: 15px; }
+
+                .tool { height: 20px; margin: 3px 17px 0 0; display: block; background-repeat: no-repeat; background-color: transparent; padding: 2px 0 0 22px; float: left; }
+                .t_measurement { background-image: url(../_images/icon_tool_measurement.gif); }
+                .t_currency { background-image: url(../_images/icon_tool_currency.gif); }
+                .t_weight { background-image: url(../_images/icon_tool_weight.gif); }
+                .t_dimensions { background-image: url(../_images/icon_tool_dimensions.gif); }
+                .formedit, .toggleSubSection { width: 9px; height: 9px; /*display: inline;*/ background: transparent url(../_images/icon_plus_minus_purple.gif) no-repeat; text-indent: -20000em; text-decoration: none; font-size: 9px; margin-left: 10px; }
+                .formedit span, .toggleSubSection span { visibility: hidden; }
+                .fineprint { font-size: 10px; /*letter-spacing: -1px;*/ }
+                .express { color: #FF6600; }
+                .ground { color: #33CC00; }
+                /* form buttons */
+                .buttonpurple { font-size: 12px; background-color: #660099; color: #FFFFFF; }
+                .btnpurple { border: none; margin: 0 0 0 0; color: #fff; height: 20px; /*padding: 0 5px 0 5px;*/ padding: 0; background: #660099 url(../_images/bg_btn_ship.gif) repeat-x; font-weight: bold; font-size: 9px; border: 1px solid #ccc; }
+                .btngrey { border: none; margin: 0 0 0 0; color: #fff; height: 20px; /*padding: 0 5px 0 5px;*/ padding: 0; background: #666 url(../_images/bg_btn_grey.gif) repeat-x; font-weight: bold; font-size: 9px; border: 1px solid #ccc; }
+                .orline { font-weight: bold; background: transparent url(../_images/bg_or_line.gif) no-repeat 0 7px; width: 175px; padding-left: 160px; }
+                /* for help within modules (not to be confused with the help in the module TH which is styled in fsm_ship.css */
+                a.help { margin: 0 0 0 5px; padding: 0 0 0 15px; background-position: center left; background-repeat: no-repeat; }
+                a.help { background-image: url(../_images/a_help_small.gif); }
+                a.help span { visibility: hidden; }
+                /* form element widths */
+                /*.textfull { width: 233px; }*/
+                .textfull { width: 223px; }
+                .texthalf { width: 113px; }
+                .text1quarter { width: 53px; }
+                .text3quarters { width: 173px; }
+                .text1third { width: 73px; }
+                .text2thirds { width: 153px; }
+                /*.selectfull {width: 237px;}*/
+                .selectfull { width: 227px; }
+                .selecthalf { width: 117px; }
+                .select1quarter { width: 57px; }
+                .select3quarters { width: 177px; }
+                .select1third { width: 77px; }
+                .select2thirds { width: 157px; }
+                .textareafull { width: 223px; }
+                .textareahalf { width: 113px; }
+                .textarea1quarter { width: 53px; }
+                .textarea3quarters { width: 173px; }
+                .textarea1third { width: 73px; }
+                .textarea2thirds { width: 153px; }
+                /* google like editable form elements - appear to be in a hardcoded state, but upon mouse over the bg flashes and on click the input box appears */
+                .editable a { text-decoration: none; color: #202020; cursor: text; display: block; width: 223px; padding: 3px 0 2px 3px; }
+                .editable a:hover { background-color: #F2F3FF; border-top: 1px solid #666; border-left: 1px solid #666; padding: 2px 0 2px 2px; }
+                .editable input, .editable select { display: none; }
+                /* content */
+
+
+                /* app wrapper - starts with the h2 then a div with padding and borders */
+
+                .alertwrap { background-color: #e6e6e6; border: 1px solid #bbb; padding: 6px; margin-top: 10px; }
+                .alertwrap em { color: #660099; font-style: normal; font-weight: bold; }
+                /* steps */
+                .steps { list-style: none; margin: 5px 0 0 0; }
+                .notitle { margin-top: 10px; }
+                .steps li { display: block; float: left; margin: 0 15px 0 0; padding-top: 0; height: 17px; background-color: pink; font-size: 11px; }
+                .steps li span { padding: 0 6px 0 5px; font-size: 11px; }
+                .steps li.on { background: transparent url(../_images/a_step_on.gif) no-repeat; color: #660099; font-weight: bold; }
+                .steps li.on span { color: #fff; }
+                .steps li.off { background: transparent url(../_images/a_step_off.gif) no-repeat; color: #666; }
+                .steps li.done { background: transparent url(../_images/a_step_done.gif) no-repeat; color: #333; }
+                .steps li.done span { color: #fff; }
+                .steps li.done a { color: #333; }
+                .appwrap { border: 1px solid #666; border-top-width: 13px; width: 745px; }
+                .colleft { background-color: #e5e5e5; width: 350px; }
+                .colright { background-color: #e5e5e5; width: 350px; }
+                .gutter { width: 14px; padding: 0; border: none; }
+                .buttons { margin: 15px 0 15px 0; clear: both; }
+
+                #appnav { height: 20px; list-style: none; margin-left: 15px; }
+                #appnav li { float: left; margin: 0 2px 0 0; list-style:none;}
+                #appnav li.last { margin-right: 0; }
+                #appnav li a { font-weight: normal; display: block; width: 160px; padding: 2px 2px 2px 6px; height: 15px; color: #202020; background-color: #f4f4f4; font-size: 11px; border: 1px solid #666; border-bottom: none; text-decoration: none; }
+                #appnav li a.more { }
+                #appnav li a.moreWhite {  }
+                #appnav li a:hover, #appnavinner li.sfhover a { background-color: #660099; color: #fff; }
+                #appnav li a.more:hover { background-color: #f4f4f4; color: #202020; }
+                #appnav li a.moreWhite:hover { background-color: #666; color: #fff; }
+                #appnav li a.on, #appnav li a.on:hover { color: #fff; background-color: #666; font-weight: bold; font-size: 12px; }
+                #appnav li a:hover li a, #appnavinner li.sfhover li a { color: #202020; background-color: #f4f4f4; }
+                #appnav li li { float: none; margin: 0; }
+                #appnav li ul { position: absolute; left: -999em; border-bottom: 1px solid #666; }
+                #appnav li ul a { width: 175px; font-size: 11px; }
+                /* need variable width appnav buttons to accomodate long/short: by default the top button is 160 wide and the subnav elements are 175 wide (see above)  */
+                /* ship appnav widths */
+                /*tooltip*/
+                a.tooltip { position: relative; text-decoration: none; }
+                a.tooltip:hover { border: none; /*note: IE needs this line for some unknown reason */ }
+                a.tooltip span { position: absolute; top: -10px; left: -200000px; padding: 0; width: 200px; border: 2px solid #ccc; /* Note: in this example we set the height to accomodate a particular bg image which can't repeat on the y-axis,
+        if none is needed or can repeat the height should be set to auto. */ line-height: normal; /*  */ color: #666; background-color: #fff; /*background-image: url(../_images/bg_tooltip.gif);
+        background-repeat: no-repeat;
+        background-position: right bottom;*/ font-size: 11px; overflow: hidden; }
+                a.tooltip:hover span h3 { color: #202020; font-size: 11px; padding: 5px; display: block; width: auto; border-bottom: 2px solid #ccc; }
+                a.tooltip:hover span p { padding: 5px; }
+                a.tooltip:hover span { left: 10px; }
+                a.rightcol:hover span { left: -210px; top: 15px; }
+                a.kickright:hover span { left: 60px; }
+                /* calendar & time picker */
+                .calendarcontainer, .timecontainer { position: relative; display: none; }
+
+
+            </style>
+
+
+
+
+            <!-- <div id="centercontainer" style="width: 780px; position: relative; top: 10px; left: 15px; border:solid 1px;"> -->
+
+            <div class="nosag">
+
+
+
+                <script src="https://www.fedex.com/fcro/js/sorttable.js"></script>
+                <div class="header" style="width: 750px;;margin-top:0;margin-bottom:0;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="745" height="15" >
+                        <tr>
+
+                            <td width="560">
+
+                                <h1>FedEx Reporting Online</h1>
+                                <!--<img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/spacer.gif" height="18" width="340" border="0" /> -->
+                            </td>
+
+
+                            <td align="left"><a href="https://www.fedex.com/fcl/web/jsp/logout.jsp?returnurl=https%3A%2F%2Fwww.fedex.com%2Freporting%2F.%2FMainPage.do"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/icons/icon_securelogin.gif"  width="18" border="0" alt="" /></a></td>
+                            <td align="left"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/spacer.gif"  width="1" border="0" alt="" /></td>
+                            <td align="left">&nbsp;<a href="https://www.fedex.com/fcl/web/jsp/logout.jsp?returnurl=https%3A%2F%2Fwww.fedex.com%2Freporting%2F.%2FMainPage.do">Logout</a></td>
+
+
+                            <td align="left"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/spacer.gif"  width="12" border="0" alt="" /></td>
+
+                            <td align="left"><a href="#"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/icons/icon_demo.gif"  width="18" border="0" alt="" onclick="window.open('/us/demo/fro/start.html',null,'height=550,width=820,scrollbars=yes,toolbar=no,menu=no,resizeable=yes'); return false;" /></a></td>
+
+                            <td align="left"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/spacer.gif"  width="1" border="0" alt="" /></td>
+
+                            <td align="left">&nbsp;<a href="#" onclick="window.open('/us/demo/fro/start.html',null,'height=550,width=820,scrollbars=yes,toolbar=no,menu=no,resizeable=yes'); return false;">Demo</a></td>
+
+                            <td align="left"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/spacer.gif"  width="12" border="0" alt="" /></td>
+
+                            <td align="left">&nbsp;<a href="#" onclick="window.open('/us/fro/index.html',null,'height=500,width=700,scrollbars=yes,toolbar=no,menu=no,resizeable=yes'); return false;"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/icons/icon_quickhelp.gif" width="18" border="0" alt="" /></a></td>
+                            <td align="left"><img src="https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/spacer.gif"  width="1" border="0" alt="" /></td>
+                            <td align="left">&nbsp;<a href="#" onclick="window.open('/us/fro/index.html',null,'height=500,width=700,scrollbars=yes,toolbar=no,menu=no,resizeable=yes'); return false;">Help</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+
+
+
+
+                <script type="text/javascript" src="https://www.fedex.com/fcro/js/fsm_common.js"></script>
+
+                <script language="JavaScript" type="text/javascript">
+
+                    /* suckerfish script to allow hover/rollover on non-anchor elements for IE */
+                    function suckerfish(type, tag, parentId) {
+                        if (window.attachEvent) {
+                            window.attachEvent("onload", function() {
+                                var sfEls = (parentId==null)?document.getElementsByTagName(tag):document.getElementById(parentId).getElementsByTagName(tag);
+                                type(sfEls);
+                            });
+                        }
+                    }
+
+                    sfHover = function(sfEls) {
+                        for (var i=0; i<sfEls.length; i++) {
+                            sfEls[i].onmouseover=function() {
+                                this.className+=" sfhover";
+                            }
+                            sfEls[i].onmouseout=function() {
+                                this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+                            }
+                        }
+                    }
+                    /* end suckerfish */
+
+                    suckerfish(sfHover, "LI", "appnav");
+
+                    function openSub(eNav, eSubnav) {
+                        if ((eNav.style.backgroundPosition=="") || (eNav.style.backgroundPosition=="100% -20px")){
+                            document.getElementById(eSubnav).style.left='auto'
+                            eNav.style.backgroundPosition="100% 0";
+                        } else {
+                            document.getElementById(eSubnav).style.left="-999em";
+                            eNav.style.backgroundPosition="100% -20px";
+                        }
+                    }
+
+                    function closeSub(eNav, eSubnav){
+                        if (document.getElementById(eSubnav).style != "-999em"){
+                            document.getElementById(eSubnav).style.left="-999em";
+                            eNav.style.backgroundPosition="-20px right";
+                            //closeSub(this,'administration');  closeSub(this,'reporting');
+                        }
+                    }
+                </script>
+                <br>
+                <br>
+                <br>
+
+                <ul id="appnav">
+                    <li id="rep" class="ship"><a id="tab1" class="moreWhite" style="background: #f4f4f4 url(https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/icons/appnav_arrows_white.gif) no-repeat 100% -20px; color: #fff; background-color: #666; font-weight: bold; font-size: 12px;" href="MainPage.do" onclick="openSub(this,'reporting');  return false">Reporting</a>
+                        <ul id="reporting">
+                            <li><a href="MainPage.do">Reporting Home</a></li>
+                            <li><a href="StandardReports.do">Standard Reports</a></li>
+                            <li><a href="ScheduledReports.do">Scheduled Reports</a></li>
+                            <li><a href="ReportsStatus.do">Report Status</a></li>
+                            <li><a href="ReportsCalendar.do">Scheduled Reports Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li id="admin" class="ship"><a id="tab2" class="more" style="background: #f4f4f4 url(https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/icons/appnav_arrows.gif) no-repeat 100% -20px; " href="Administration.do" onclick="openSub(this,'administration'); return false">Administration</a>
+                        <ul id="administration">
+                            <li><a href="Administration.do">Administration Home</a></li>
+                            <li><a href="AccountGroupsList.do?method=getAccountGroupList">My Account Groups</a></li>
+
+                            <li><a href="Users.do?method=getUserList">Users</a></li>
+
+                            <li><a href="https://www.fedex.com/fcl/web/jsp/accountInfo1.jsp?fclHost=www.fedex.com&step3URL=https%3A%2F%2Fwww.fedex.com%2Freporting%2F.%2FfcroStep3.do&afterwardsURL=https%3A%2F%2Fwww.fedex.com%2Freporting%2F.%2FMainPage.do&appName=fclcro&countryCode=US&languageCode=en&programIndicator=">Standard FedEx Accounts</a></li>
+                            <li><a href="ReportPreferences.do?method=onload">E-mail Preferences</a></li>
+
+                            <li><a href="ChangeAdministrator.do?method=onLoad" >Change Administrator</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+            </div>
+
+            <div id="mainbody">
+                <div class="appwrap">
+
+                    <br/> <h2 class="appname" style="margin-left:15px;">Report Results</h2><br/>
+                    <div id="bodycontent" class="" style="width: 700px; padding-bottom:0px">
+
+                        <table  border="0" cellpadding="0" cellspacing="0">
+                            <!-- Start Measurements Area 4 -->
+                            <tr>
+                                <!--    <td class="gutter">&nbsp;</td>-->
+                                <td>
+                                    <form name="StandardReportForm" method="post" action="/reporting/DownloadPage.do">
+                                        <table class="custommodule" width="715" cellpadding="0" cellspacing="0" border="0">
+                                            <tr widht="100%"  bgcolor="">
+                                                <th colspan="11" class="first">Report Parameters</th>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td width="350" class="top first" style="padding-left:0px; border-bottom:solid 1px #999999;">
+                                                    <table cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td width="150" style="height:13px;" id="companyNameLable" ><h2>Company&nbsp;/&nbsp;Report name</h2></td>
+                                                            <td width="150" style="height:13px;">Shipment Detail</td>
+                                                        </tr>
+                                                        <input type="hidden" name="companyName" value="Shipment Detail"/>
+                                                        <tr>
+                                                            <td style="height:13px;"><h2>Account groups</h2></td>
+                                                            <td style="height:13px;"><a href="#" onclick="window.open('PopAccounts.do?rrID=3271096',null,'height=350,width=520,scrollbars=yes,toolbar=no,menu=no,resizeable=no');">View </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="height:13px;" id="dateRangeLable" ><h2>Date range</h2></td>
+
+                                                            <td style="height:13px;">April, 2017 - April, 2017</td>
+                                                        </tr>
+                                                        <input type="hidden" name="dateRange" value="April, 2017 - April, 2017"/>
+                                                        <tr>
+                                                            <td style="height:13px;" id="dateGeneratedLable" ><h2>Date generated</h2></td>
+                                                            <td style="height:13px;">May 07, 2017</td>
+                                                        </tr>
+                                                        <input type="hidden" name="dateGenerated" value="May 07, 2017"/>
+                                                        <tr>
+                                                            <td  style="height:13px;"></td>
+                                                            <td  style="height:13px;"></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+
+                                                <td widht="350" class="top" style="padding-left:0px; border-bottom:solid 1px #999999;">
+                                                    <table cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td width="120" style="height:13px;" id="detailLevelLable"><h2>Detail level</h2></td>
+                                                            <td width="120" style="height:13px;">Detailed</td>
+                                                        </tr>
+                                                        <input type="hidden" name="detailLevel" value="Detailed"/>
+                                                        <tr>
+                                                            <td style="height:13px;" id="reportTypeLable"><h2>Report Type</h2></td>
+                                                            <td style="height:13px;">Payer</td>
+                                                        </tr>
+                                                        <input type="hidden" name="reportType" value="Payer"/>
+                                                        <tr>
+                                                            <td style="height:13px;" id="timePeriod" ><h2>Time period</h2></td>
+                                                        </tr>
+                                                        <script language='JavaScript'  type='text/javascript'>
+                                                            document.getElementById('timePeriod').style.display = 'none';
+                                                        </script>
+                                                        <tr>
+                                                            <td width="100" style="height:13px;" id="currencyLable"  ><h2>Currency</h2></td>
+                                                            <td width="120" style="height:13px;">USD</td>
+                                                        </tr>
+                                                        <input type="hidden" name="currency" value="USD"/>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table><br></br>
+                                        <table cellpadding="0" width="715" cellspacing="0" border="0" class="formmodule">
+                                            <tr >
+                                                <td colspan="3" width="100%" >
+                                                    <p style="font-weight: bold;">Your Shipment Detail report is now ready for download.</p>
+                                                    Select the format for your report and click "Download" to continue.
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td colspan="3"><br/><h3 class="formmodulesectionhead">Download Shipment Detail</h3></td>
+                                            </tr>
+                                            <tr >
+                                                <td>
+                                                    <table cellpadding="0"  cellspacing="0" border="0" width="100%">
+                                                        <tr>    <td>
+                                                            Download Format
+                                                        </td>
+                                                            <td width="50%">
+
+                                                                <select name="selectedDownloadFormat" style="width:220px"><option id="Select" value="Select" filter="true">Select</option>
+                                                                    <option value="CSV">CSV</option></select>
+
+
+                                                                <script type="text/javascript">
+                                                                    function retrieveAjaxURL(url) {
+
+                                                                        xHttpReq = getXmlHttpRequestObject();
+
+                                                                        xHttpReq.onreadystatechange = processStateChange;
+                                                                        try {
+                                                                            //alert("new call 2:" + url);
+                                                                            xHttpReq.open("GET", url, true);
+                                                                        } catch (e) {
+                                                                            alert(e);
+                                                                        }
+                                                                        //if (window.XMLHttpRequest) { // Non-IE browsers
+                                                                        //      xHttpReq.send(null);
+                                                                        //}else if (window.ActiveXObject) { // IE
+                                                                        //      //alert("new call 3 - sending NULL");
+                                                                        //              xHttpReq.send(null);
+                                                                        //}
+                                                                        xHttpReq.send(null);
+                                                                    }
+
+                                                                    function downloadFile(){
+
+                                                                        var d = document.StandardReportForm.selectedDownloadFormat.options;
+
+                                                                        var dwnType = d[d.selectedIndex].value;
+                                                                        if (dwnType == 'Select') {
+                                                                            alert("Please select download format.");
+                                                                            return false;
+                                                                        }else{
+                                                                            requestFileDownloadx(5065425,dwnType);
+                                                                            return true;
+                                                                        }
+                                                                    }
+
+                                                                    function processStateChange() {
+                                                                        processFileDownloadResponse();
+                                                                    }
+
+                                                                    function processFileDownloadResponse(){
+                                                                        if (xHttpReq.readyState == 4) { // Complete
+                                                                            if (xHttpReq.status == 200) { // OK response
+                                                                                var xml;
+                                                                                xml = xHttpReq.responseXML;
+                                                                                //alert("xml: " + xml);
+                                                                                populateFileDownloadAJAXResponse(xml);
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                alert("Problem: " + xHttpReq.statusText);
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    function populateFileDownloadAJAXResponse(xml){
+                                                                        var downloadStatusVal;
+                                                                        var downloadStatusEle;
+                                                                        var success;
+                                                                        var ie=false;
+                                                                        downloadStatusEle = xml.getElementsByTagName("downloadStatus")[0];
+                                                                        downloadStatusVal=downloadStatusEle.firstChild.data;
+                                                                        if(downloadStatusVal == 'SUCESS')
+                                                                        {
+                                                                            submitForDownLoad();
+                                                                            return;
+                                                                        }
+
+                                                                        downloadStatusEle = xml.getElementsByTagName("downloadStatus")[0];
+                                                                        if (downloadStatusEle != null ) {
+
+                                                                            downloadStatusVal = downloadStatusEle.firstChild.data;
+
+                                                                            if(downloadStatusVal != null && downloadStatusVal == 'SUCCESS'){
+                                                                                success='true';
+                                                                            }
+
+                                                                            if(success!= 'true'){
+                                                                                var dispErrorMsg = 'Sorry, download file request failed.';
+                                                                                i=0;
+                                                                                while (i >= 0) {
+                                                                                    err = xml.getElementsByTagName("error")[i];
+                                                                                    if (err != null) {
+                                                                                        errMsg = err.firstChild.data;
+                                                                                        if(errMsg != null){
+                                                                                            dispErrorMsg = dispErrorMsg + '\n-\t' + errMsg;
+                                                                                        }
+                                                                                        i++;
+                                                                                    } else {
+                                                                                        i = -1;
+                                                                                    }
+                                                                                }
+                                                                                //display error messages
+                                                                                alert(dispErrorMsg);
+                                                                                return;
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                </script>
+
+
+                                                                <input type="button" class="buttonpurple" style="background: #660099 url(https://www.fedex.com/fcro/images/Fedex/images/ascend/shared/nxgen/bg_button_purple.gif) repeat-x; " value="Download" onclick="downloadFile()" />
+                                                                <!--report_351.xls-->
+                                                                <!--input type="submit" class="buttonpurple" value="Download"  / -->
+                                                            </td>
+                                                        </tr> </table>
+                                                </td>
+                                            </tr>
+                                            <!--                            <tr bgcolor="#CCCCCC">
+                                                                                    <td></td>
+                                                                                    <td colspan="2" style="padding:0px 0px 5px 0px;">
+                                                                                            <input type="checkbox" class="checkbox" /> Save this report for future use
+                                                                                    </td>
+                                                                            </tr>
+                                                                            <tr bgcolor="#CCCCCC">
+                                                                                    <td></td>
+                                                                                    <td colspan="2" style="padding:0px;"><a href="schedule_reports.html">Schedule this report</a></td>
+                                                                            </tr>
+                                                                            <tr bgcolor="#CCCCCC">
+                                                                                    <td colspan="3"></td>
+                                                                            </tr>
+                                            -->
+                                            <tr>
+                                                <td colspan="3" >&nbsp;</td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </td>
+                                <!--            <td class="gutter">&nbsp;</td>-->
+                            </tr>
+                            <tr>
+                                <td colspan="3">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Global Header-Footer changes--- Start -->
+        <div id="fedex-footer"></div>
+    </div>
+    <script type="text/javascript" src="/templates/components/apps/contentim/contentim_include-min.js"></script>
+    <!-- Global Header-Footer changes--- End -->
+
+
+
+
+    <script language='JavaScript'  type='text/javascript'>
+        var sURL;
+        var isExcel2007="false";
+        function requestFileDownloadx(riID, dwnType) {
+            var ext = '';
+            var pivotTableData = '';
+            if (dwnType == 'Excel'){
+                //find "Pivot Table" ... work around method for now, it can be fixed upon approval from FedEx.
+                // --- begin ---
+                var tableTags = document.getElementsByTagName("SPAN");
+                if(tableTags!=null){
+                    for(i=0; i<tableTags.length;i++){
+                        if( tableTags[i].id != '' ){
+                            if(tableTags[i].id.indexOf('Table_') > -1){
+                                //document.thisForm.pivotTableHtml.value = escape(tableTags[i].innerHTML);
+                                pivotTableData = escape(tableTags[i].innerHTML);
+                            }
+                        }
+                    }
+                }
+                // --- end ---
+                ext = '.xls';
+            }
+            else if (dwnType == 'ExcelwithPivotTables' || dwnType == 'ExcelWithPivotTables'|| dwnType=='ExcelwithPivotTables(2003)' ||dwnType =='ExcelwithPivotTables(2007)'){
+                ext = '_Pvt.xls';
+            }else if (dwnType == 'CSV'){
+                ext = '.zip';
+            }
+            sURL = "download/report/fcro_report_" + dwnType + "_" + riID + ext;
+            var paraData = "type=" + dwnType + "&ri=" + riID+"&riID="+riID;
+            var frm= document.forms['jax'];
+            frm.elements['pivotTableHtml'].value=pivotTableData;
+            frm.action=sURL;
+            frm.method='post';
+            frm.elements['riID'].value=riID;
+            if (dwnType == 'Excel'){
+
+                paraData = paraData + "&pivotTableHtml=" + pivotTableData;
+
+                //submitPostRequest(sURL, paraData);
+                frm.elements['type'].value='Excel'
+                //document.thisForm.pivotTableHtml.value = ''; //resetting it to empty string
+                //submitPostRequest(sURL,paraData);
+            }else if (dwnType == 'CSV')
+            {
+                frm.elements['type'].value='CSV'
+                frm.submit();
+
+            }
+            else
+            {
+                // appendding this request parameters onto the URL as a query string, being sure to escape it first.
+                sURL = sURL + "?" + paraData
+                retrieveAjaxURL(sURL+ "&download=true");
+            }
+        }
+        function submitForDownLoad()
+        {
+            var frm= document.forms['jax'];
+            frm.action=sURL;
+            frm.method='post';
+            frm.submit();
+        }
+    </script>
+    <form name="jax" method="post" >
+        <input type="hidden" name='pivotTableHtml'>
+        <input type="hidden" name="type">
+        <input type="hidden" name="riID">
+    </form>
+
+</body>
+</html>
