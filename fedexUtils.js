@@ -93,7 +93,7 @@ let trackPostFrom = {
 let cookiesCache = {};
 
 
-let promise = getEstimatedDeliveryDateFromPost("731571689223"); //"779058840541");
+let promise = getEstimatedDeliveryDateFromPost("778854424040");//"778811840479");//"778854424040");//"731571689223"); //"779058840541");
 promise.then (x=>{
     console.log (JSON.stringify(x));
 })
@@ -102,7 +102,7 @@ promise.then (x=>{
 
 function reportDownloadProcess ()
 {
-    let loginPromise = fedexLogin("mtahardware1","1907Fb1905Gs");
+    let loginPromise = fedexLogin("","1907Fb1905Gs");
     let fileDowloaded = downloadDocument(loginPromise);
     fileDowloaded.then (res=>{
         console.log ("I see file");
