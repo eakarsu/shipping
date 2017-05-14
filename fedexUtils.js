@@ -19,7 +19,7 @@ var csvparse =  require('csv-parse/lib/sync');
 
 var fedexURL = "https://www.fedex.com/fcl/logon.do";
 let fedexDownloadUrl = "https://www.fedex.com/reporting/DownloadPage.do";
-let fedexDownloadPrepareUrl = "https://www.fedex.com/reporting/StandardReports.do";
+let fedexDownloadPrepareUrl = "https://www.fedex.com/reporting/StandardReports.do?action=create&standardreporttype=217";
 let fedexTrackingDetails = "https://www.fedex.com/fedextrack/?tracknumbers={trackingNumber}";
 let fedexTrackPostCall = "https://www.fedex.com/trackingCal/track";
 
@@ -99,19 +99,19 @@ let trackPostFrom = {
 
 let cookiesCache = {};
 
-processOneUser ("mtahardware1","","");
+processOneUser ("mtahardware1","1907Fb1905Gs","721459721");
 
 function processOneUser (userName,userPassword,accountNumber)
 {
-    /*
+
     let loginPromise = fedexLogin(userName,userPassword);
     let newDownloadForm = prepareDownloadInputJson(accountNumber);
     let promise2 = downloadDocument (loginPromise,newDownloadForm);
-    */
-    let promise2 = Promise.try(function(){
+
+    /*let promise2 = Promise.try(function(){
         return "ok";
     });
-
+    */
     let promise3 = unzipReport(promise2);
     let trackNumbersPromise =    collectTrackNumbers (promise3);
     let truckNumPromises = processAllTrackingNums(trackNumbersPromise);
@@ -119,7 +119,6 @@ function processOneUser (userName,userPassword,accountNumber)
         console.log ("processed all:"+JSON.stringify(result));
         let refunds = result.filter(x=>x && x.isRefundEligible);
         console.log (`Obtained ${refunds.length} refunds`);
-        ref
     })
 }
 
@@ -260,7 +259,13 @@ function downloadDocument(loginPromise,downloadform) {
     return loginPromise.then(res=>{
         let uri = "https://www.fedex.com/reporting/StandardReports.do";
         let options =  getOptionsForPost(downloadform,uri,res);
-        options.headers.Referer = uri+"?action=create&standardreporttype=217"
+        options.headers.Referer = uri+"?action=create&standardreporttype=217";
+        return rp (options)
+    }).then (res=>{
+        let accNums = findAccNumbers (res.body);
+        let uri = "https://www.fedex.com/reporting/StandardReports.do";
+        downloadform.selectedAccountNumbers = accNums;
+        let options =  getOptionsForPost(downloadform,uri,res);
         return rp (options)
     }).then (res=>{
         let uri = "https://www.fedex.com/reporting/PrepareReport.do";
@@ -276,13 +281,24 @@ function downloadDocument(loginPromise,downloadform) {
         let options =  getOptionsForPost(csvDownload,uri,res);
         options.encoding = "binary";
         return rp (options)
-    }).then (res=> {
+    }).then (res=> { 
         console.log("download completed!!");
         fs.writeFileSync("tmp/report.zip", res.body, 'binary');
         return Promise.try(function(){
             return res.body;
         })
     })
+}
+
+function findAccNumbers (body)
+{
+    var accountNumbers = []
+    var $ = cheerio.load(body);
+    var options = $("select[name=availableAccountNumbers] option");
+    options.each(function(index){
+        accountNumbers.push($(this).attr("value"))
+    });
+    return accountNumbers;
 }
 
 function getEstimatedDeliveryDate (trackingNumber)
