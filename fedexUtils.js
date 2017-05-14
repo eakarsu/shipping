@@ -12,16 +12,20 @@ var cheerio = require('cheerio');
 var util = require('util');
 var rp = require('request-promise');
 var Promise = require("bluebird");
-var cheerio = require("cheerio");
 var jp = require('jsonpath');
 var extract = require('extract-zip')
 var csvparse =  require('csv-parse/lib/sync');
+let captchaUri = "http://api.dbcapi.me/api/captcha";
 
 var fedexURL = "https://www.fedex.com/fcl/logon.do";
 let fedexDownloadUrl = "https://www.fedex.com/reporting/DownloadPage.do";
 let fedexDownloadPrepareUrl = "https://www.fedex.com/reporting/StandardReports.do?action=create&standardreporttype=217";
 let fedexTrackingDetails = "https://www.fedex.com/fedextrack/?tracknumbers={trackingNumber}";
 let fedexTrackPostCall = "https://www.fedex.com/trackingCal/track";
+let fedexClaimUrl = "https://www.fedex.com/servlet/InvoiceServlet";
+let fedexClaimForm = "https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english";
+
+https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english
 
 var loginform = {
     "appName": "fclfsm",
@@ -97,23 +101,27 @@ let trackPostFrom = {
     "format":"json"
 }
 
+let tnums = ["778757646882", "778717233042", "778693875651", "778536741217", "778526583375",
+    "778490702328", "777995990030", "777995960760", "777995930080"];
+
 let cookiesCache = {};
 
 processOneUser ("mtahardware1","","721459721");
 
-function processOneUser (userName,userPassword,accountNumber)
+//processClaimForm ("642755709303","155723013","E");
+
+function processOneUser (userName,userPassword)
 {
-
+  /*
     let loginPromise = fedexLogin(userName,userPassword);
-    let newDownloadForm = prepareDownloadInputJson(accountNumber);
+    let newDownloadForm = prepareDownloadInputJson();
     let promise2 = downloadDocument (loginPromise,newDownloadForm);
-
-    /*let promise2 = Promise.try(function(){
-        return "ok";
-    });
-    */
     let promise3 = unzipReport(promise2);
     let trackNumbersPromise =    collectTrackNumbers (promise3);
+    */
+    let trackNumbersPromise = Promise.try(function(){
+        return tnums;
+    });
     let truckNumPromises = processAllTrackingNums(trackNumbersPromise);
     Promise.all(truckNumPromises).then (result =>{
         console.log ("processed all:"+JSON.stringify(result));
@@ -143,6 +151,30 @@ function processAllTrackingNums (trackNumsPromise)
     });
 }
 
+function calculateExpectedTime (transitType,shippedTime)
+{
+    console.log (shippedTime + " failed in auto calculation for shipping "+shippedTime.toLocaleString());
+    /*
+    Fedex Express Saver  +3d 4:30PM
+    Fedex 2Day   +2d 4:30PM
+    Fedex 2Day AM +2d 10:30AM
+    Fedex Standard Overnight +1d 3:00PM
+    Fedex Priority Overnight +1d 10:30AM
+    Fedex First Overnight +1d 8:30AM
+     */
+    shippedTime = new Date(shippedTime);
+    let rules = {};
+    rules["FedEx Express Saver"] = d=>{d.setDate(d.getDate()+3); d.setHours(16); d.setMinutes(30)}
+    rules["FedEx Express"] = d=>{d.setDate(d.getDate()+3); d.setHours(16); d.setMinutes(30)}
+    rules["FedEx 2Day"] = d=>{d.setDate(d.getDate()+2); d.setHours(16); d.setMinutes(30)};
+    rules["FedEx 2Day AM"] = d=>{d.setDate(d.getDate()+2); d.setHours(10); d.setMinutes(30)};
+    rules["FedEx Standard Overnight"] = d=>{d.setDate(d.getDate()+1); d.setHours(15); d.setMinutes(0)};
+    rules["FedEx Priority Overnight"] = d=>{d.setDate(d.getDate()+1); d.setHours(10); d.setMinutes(30)};
+    rules["FedEx First Overnight"] = d=>{d.setDate(d.getDate()+1); d.setHours(8); d.setMinutes(30)};
+    rules[transitType](shippedTime);
+    return shippedTime.toLocaleString();
+}
+
 function processOneRec (oneTrackRecord) {
     let nodes = jp.nodes(oneTrackRecord, "$..*[?(@.isException == true)].status")
     let isException = nodes.length > 0;
@@ -151,18 +183,23 @@ function processOneRec (oneTrackRecord) {
         console.log("This tracking record has expception :" + oneTrackRecord);
         return;
     }
-    let transitType = jp.query(oneTrackRecord, "$..trackingCarrierDesc")[0];
+    let transitType = jp.query(oneTrackRecord, "$..serviceDesc")[0];
     if (transitType.match(/Fedex Ground/)) {
         console.log("Fedex Ground")
     } else if (transitType.match(/Express/)) {
         console.log("Fedex Express")
     }
     let trackingNum = jp.query(oneTrackRecord, "$..trackingNbr")[0];
-    let expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd")[0];
+    var expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd")[0];
     let expectedDate = jp.query(oneTrackRecord, "$..displayStdTransitDate")[0];
-    let deliveryTime = jp.query(oneTrackRecord, "$..actDeliveryDt")[0];
+    let deliveryTime = jp.query(oneTrackRecord, "$..displayActDeliveryDateTime")[0];
     let deliveryDate = jp.query(oneTrackRecord, "$..displayActDeliveryDt")[0];
     let shippedTime = jp.query(oneTrackRecord, "$..shipDt")[0];
+    var succ = true;
+    if (expectedTime == ""){
+        expectedTime = calculateExpectedTime(transitType,shippedTime);
+        succ = false;
+    }
     //For ground, ignore time delivered. If it is delivered in same date, then it is ok
     //Got non-ground, take day and time, calculate eligiblity
     var isRefundEligible;
@@ -177,7 +214,9 @@ function processOneRec (oneTrackRecord) {
         deliveryTime: deliveryTime,
         shippedTime: shippedTime,
         isRefundEligible: isRefundEligible,
-        transitType:transitType
+        transitType:transitType,
+        autoCalculateSucc:succ,
+        details:oneTrackRecord
     };
     return Promise.try(function(){
         return result
@@ -194,7 +233,7 @@ function unzipReport (prevPromise)
     });
 }
 
-function prepareDownloadInputJson (accountNumber,startDate,endDate)
+function prepareDownloadInputJson (startDate,endDate)
 {
     //downloadform
     var now = new Date();
@@ -208,7 +247,6 @@ function prepareDownloadInputJson (accountNumber,startDate,endDate)
         oneWeekBefore = startDate;
     if (endDate)
         today = endDate;
-    downloadform["selectedAccountNumbers"] = accountNumber;
     downloadform.onetimeending_month = (today.getMonth()+1).toString();
     downloadform.onetimestarting_month = (oneWeekBefore.getMonth()+1).toString();
     downloadform.onetimeending_year = today.getFullYear().toString();
@@ -462,4 +500,134 @@ function getOptionsForGet (uri,res) {
     if (cookies && Object.keys(cookies).length > 0)
         optionsForGet.headers.Cookie = getCookie(cookies);
     return optionsForGet
+}
+
+
+function obtainCaptcha (uri)
+{
+    let options =
+    {
+        headers: {
+            'Accept': "text/html"
+        },
+        resolveWithFullResponse: true,
+        uri: uri,
+        method: 'GET',
+        followRedirect: false,
+        simple: false,
+        encoding : "binary"
+    };
+
+    let imageFileName = "/tmp/captcha_challenge.gif";
+    var formData = {
+        // Pass a simple key-value pair
+        username: "aozturk",
+        // Pass data via Buffers
+        password: "Test1122",
+        // Pass data via Streams
+        captchafile: ""
+        // Pass multiple values /w an Array
+    }
+
+    return rp (options).then (res=>{
+        console.log("download captcha image first!!");
+        fs.writeFileSync(imageFileName, res.body, 'binary');
+        formData.captchafile = fs.createReadStream(imageFileName);
+        return rp.post({url:captchaUri,formData:formData}).then(resp=>{
+            console.log ("result:"+x);
+            let result = resp.message.split(/&/)[2].replace(/text=/,"");
+            return Promise.try (function (){return result})
+        }).catch ( resp =>{
+            //status code 303
+            if (resp.message.match(/^303/)){
+                let captchaId = resp.message.split(/&/)[1].replace(/captcha=/,"");
+                return rp.get ({url:`${captchaUri}/${captchaId}`}).then (resp =>{
+                    let result = resp.split(/&/)[2].replace(/text=/,"");
+                    return Promise.try (function (){return result})
+                })
+            }
+        });
+    })
+}
+
+/**
+ *
+ * @param trackingNumber
+ * @param invoiceNumber
+ * @param shipType shipType E for Express G fo Ground
+ */
+function processClaimForm (trackingNumber,invoiceNumber,shipType)
+{
+    rp.get({url:fedexClaimForm,resolveWithFullResponse: true,}).then (resp =>{
+        return selectFirstClaimForm(shipType,resp);
+    }).then (resp=>{
+        findClaimData (resp,trackingNumber,invoiceNumber);
+    });
+}
+
+/**
+ *
+ * @param shipType E for Express G fo Ground
+ */
+function selectFirstClaimForm (shipType,resp)
+{
+    let body = resp.body;
+    let form = {
+        "jsp_name": "adjustment",
+        "orig_country": "US",
+        "language": "english",
+        "service_type": shipType,
+        "pay_type": "invoice",
+        "NewReq": ""
+    }
+    var $ = cheerio.load(body);
+    var NewReq = $("input[type=submit][name=NewReq]").attr("value");
+    form.NewReq = NewReq;
+    let options = getOptionsForPost(form,fedexClaimUrl,resp);
+    options.Referer = fedexClaimForm;
+    return rp (options)
+}
+function findClaimData (resp,trackingNumber,invoiceNumber)
+{
+    let body = resp.body
+    //get this by invoking third party api
+    var nucaptcha_answer = "";
+
+    var $ = cheerio.load(body);
+    var nucaptcha_media = $("img[id=nucaptcha-media]").attr("src");
+    var enter = $("input[id=nucaptcha-answer-enter]").attr("value");
+    var exit = $("input[id=nucaptcha-answer-exit]").attr("value");
+    var token = $("input[id=nucaptcha-token]").attr("value");
+    var nds_pmd = $("input[name=nds-pmd]").attr("value");
+    var ndsid = $("input[name=ndsid]").attr("value");
+
+    var formData = {
+        "jsp_name":"Invoiced",
+        "orig_country":"US",
+        "language":"english",
+        "service_type":"E",
+        "pay_type":"invoice",
+        "request_type":"NewReq",
+        "tracking_nbr":trackingNumber,
+        "invoice_nbr":invoiceNumber,
+        "nucaptcha-answer":"ERCC",
+        "nucaptcha-answer-enter":"1494781618",
+        "nucaptcha-answer-exit":"1494785092",
+        "nucaptcha-token":token,
+        "nds-pmd":nds_pmd,
+        "ndsid":ndsid
+    }
+
+    let captchaPromise = obtainCaptcha(nucaptcha_media);
+    captchaPromise.then (captchaRes =>{
+        console.log ("Got captchaRes :"+captchaRes);
+        formData["nucaptcha-answer"] = captchaRes;
+        let options =  getOptionsForPost(formData,fedexClaimUrl,resp);
+        options.Referer = fedexClaimUrl;
+        rp(options).then (res=>{
+            console.log ("Result for claim submit:"+res);
+        })
+
+    })
+
 }

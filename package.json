@@ -9,10 +9,15 @@
     "async": "^2.1.5",
     "bluebird": "^3.5.0",
     "body-parser": "~1.16.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "cheerio": "^0.20.0",
+    "chromedriver": "^2.29.0",
+    "coffee-script": "^1.12.5",
     "cookie-parser": "~1.4.3",
     "cors": "~2.7.1",
     "csv": "^1.1.1",
+    "deathbycaptcha": "0.0.3",
     "debug": "~2.6.0",
     "deep-equal": "^1.0.1",
     "express": "~4.14.1",
@@ -24,11 +29,14 @@
     "jsdom": "^9.6.0",
     "jsonpath": "^0.2.11",
     "lodash": "^4.17.4",
+    "mocha": "^3.3.0",
     "morgan": "~1.7.0",
     "promise": "^7.1.1",
     "querystring": "^0.2.0",
     "request": "~2.69.0",
     "request-promise": "^4.2.0",
-    "serve-favicon": "~2.3.2"
+    "selenium-webdriver": "^3.4.0",
+    "serve-favicon": "~2.3.2",
+    "webdriverio": "^4.8.0"
   }
 }
