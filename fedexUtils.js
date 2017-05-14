@@ -99,7 +99,7 @@ let trackPostFrom = {
 
 let cookiesCache = {};
 
-processOneUser ("mtahardware1","1907Fb1905Gs","721459721");
+processOneUser ("mtahardware1","","721459721");
 
 function processOneUser (userName,userPassword,accountNumber)
 {
@@ -281,7 +281,7 @@ function downloadDocument(loginPromise,downloadform) {
         let options =  getOptionsForPost(csvDownload,uri,res);
         options.encoding = "binary";
         return rp (options)
-    }).then (res=> { 
+    }).then (res=> {
         console.log("download completed!!");
         fs.writeFileSync("tmp/report.zip", res.body, 'binary');
         return Promise.try(function(){
