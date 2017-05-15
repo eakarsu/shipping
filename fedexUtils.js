@@ -25,7 +25,6 @@ let fedexTrackPostCall = "https://www.fedex.com/trackingCal/track";
 let fedexClaimUrl = "https://www.fedex.com/servlet/InvoiceServlet";
 let fedexClaimForm = "https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english";
 
-https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english
 
 var loginform = {
     "appName": "fclfsm",
@@ -106,9 +105,12 @@ let tnums = ["778757646882", "778717233042", "778693875651", "778536741217", "77
 
 let cookiesCache = {};
 
-processOneUser ("mtahardware1","","721459721");
+//processOneUser ("mtahardware1","","721459721");
 
 //processClaimForm ("642755709303","155723013","E");
+
+let uri = "https://api-us-east-1.nd.nudatasecurity.com/1.0/w/65110/w-809838/captcha?type=VIDEO&lang=eng&index=0&token=1.w-809838.1.2.l7yccooHLger9ZMiP4d_rA,,.9tHOlkX-ARImo64IDe_BMtC7u2K6PM6pX1atd1LyQvx4njsj9H4ku3V2j7eIIwu7muOyNdOTcSSQP34XpFCRMgw9K2IGJmw9-xVQyWyZeg-PGOsKqzrDeF_yOi3PuTT4ivGJ84dty-V_jIdthWk390B1PeXgnco5SYA8bbtwg_NYr-2sQV9K5l8hOMjO7RFrmRq08RFkWIEAJAkvZ4RoQtBg33daBNuKMwEjdV60-7BmD8t19pZJFt7IKmfw6hrT_RAdkKy5OLpx8F64NwcKusH8lsSgW7Ir3sCMJ-QQ6RR12awQqC7uh88erdgzSAGTg6MUFopWlzy5DgOEDVALvxdYStcShmHPk0XhNbnpDEk,&r=rs-pnVdAkKLKeOT2KRpFqF3UQxx&ptype=SCRIPT"
+//obtainCaptcha(uri);
 
 function processOneUser (userName,userPassword)
 {
@@ -505,10 +507,11 @@ function getOptionsForGet (uri,res) {
 
 function obtainCaptcha (uri)
 {
+    console.log ("Using uri "+uri);
     let options =
     {
         headers: {
-            'Accept': "text/html"
+            'Accept': "application/json"
         },
         resolveWithFullResponse: true,
         uri: uri,
@@ -533,19 +536,41 @@ function obtainCaptcha (uri)
         console.log("download captcha image first!!");
         fs.writeFileSync(imageFileName, res.body, 'binary');
         formData.captchafile = fs.createReadStream(imageFileName);
-        return rp.post({url:captchaUri,formData:formData}).then(resp=>{
-            console.log ("result:"+x);
-            let result = resp.message.split(/&/)[2].replace(/text=/,"");
+        return rp.post({url:captchaUri,formData:formData,headers:{Accept:"Application/json"}}).then(resp=>{
+            let result = JSON.parse(resp).text;
             return Promise.try (function (){return result})
         }).catch ( resp =>{
+            let response = JSON.parse(resp.response.body);
+            let status = response.status;
+            console.log ("status:"+status+" captchae response="+response.text);
+            let message = resp.message;
             //status code 303
-            if (resp.message.match(/^303/)){
-                let captchaId = resp.message.split(/&/)[1].replace(/captcha=/,"");
-                return rp.get ({url:`${captchaUri}/${captchaId}`}).then (resp =>{
-                    let result = resp.split(/&/)[2].replace(/text=/,"");
+            if (message.match(/^303/)){
+                let captchaId = response.captcha;
+                let nextUri = `${captchaUri}/${captchaId}`;
+                console.log ("next URI:"+nextUri);
+                let options = {url:nextUri,headers:{Accept:"Application/json"}};
+                return rp.get (options).then (resp =>{
+                    let result = JSON.parse(resp).text;
+                    console.log ("final 1  captchae result:"+result+":"+resp+":"+resp.message);
                     return Promise.try (function (){return result})
+                }).then (result => {
+                    if (result.length == 0) {
+                        setTimeout(function() {
+                            console.log('Blah blah blah blah extra-blah');
+                        }, 3000);
+
+                        rp.get(options).then(resp => {
+                            let result = JSON.parse(resp).text;
+                            console.log("final 2 captchae result:" + result + ":" + resp + ":" + resp.message);
+                            return Promise.try(function () {return result })
+                        });
+                    }else
+                        return Promise.try (function (){return result});
                 })
-            }
+            }else
+                return Promise.try (function (){return response.text});
+
         });
     })
 }
@@ -631,3 +656,5 @@ function findClaimData (resp,trackingNumber,invoiceNumber)
     })
 
 }
+
+exports.obtainCaptcha=obtainCaptcha;
