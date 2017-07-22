@@ -1,4 +1,4 @@
-var outputFolder = "tmp";
+var outputFolder = "/tmp";
 
 var loginform = {
     "appName": "fclfsm",
@@ -84,3 +84,4 @@ exports.csvDownload = csvDownload;
 exports.downloadform = downloadform;
 exports.loginform = loginform;
 exports.outputFolder=outputFolder;
+

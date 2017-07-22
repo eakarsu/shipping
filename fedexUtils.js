@@ -27,7 +27,11 @@ let fedexClaimUrl = "https://www.fedex.com/servlet/InvoiceServlet";
 let fedexClaimForm = "https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english";
 let cookiesCache = {};
 
-processOneUser("mtahardware1", "1907Fb1905Gs", "721459721");
+try {
+    //processOneUser("mtahardware1", "1907Fb1905Gs");
+}catch (ex){
+    console.log ("errr:"+er);
+}
 
 //processClaimForm ("642755709303","155723013","E");
 
@@ -48,7 +52,9 @@ async function processOneUser(userName, userPassword) {
     console.log("processed all:" + JSON.stringify(processedTrackingNums));
     let refunds = processedTrackingNums.filter(x => x && x.isRefundEligible);
     console.log(`Obtained ${refunds.length} refunds`);
-    return refunds;
+
+    let result = {refunds:refunds,records:processedTrackingNums};
+    return result;
 }
 
 async function processAllTrackingNums(trackingNumbers) {
@@ -606,3 +612,4 @@ function findClaimData(resp, trackingNumber, invoiceNumber) {
 }
 
 exports.obtainCaptcha = obtainCaptcha;
+exports.processOneUser=processOneUser;
