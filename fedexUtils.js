@@ -15,8 +15,9 @@ var Promise = require("bluebird");
 var jp = require('jsonpath');
 var extract = require('extract-zip')
 var csvparse =  require('csv-parse/lib/sync');
-let captchaUri = "http://api.dbcapi.me/api/captcha";
+var config = require("./configs");
 
+let captchaUri = "http://api.dbcapi.me/api/captcha";
 var fedexURL = "https://www.fedex.com/fcl/logon.do";
 let fedexDownloadUrl = "https://www.fedex.com/reporting/DownloadPage.do";
 let fedexDownloadPrepareUrl = "https://www.fedex.com/reporting/StandardReports.do?action=create&standardreporttype=217";
@@ -24,133 +25,49 @@ let fedexTrackingDetails = "https://www.fedex.com/fedextrack/?tracknumbers={trac
 let fedexTrackPostCall = "https://www.fedex.com/trackingCal/track";
 let fedexClaimUrl = "https://www.fedex.com/servlet/InvoiceServlet";
 let fedexClaimForm = "https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english";
-
-
-var loginform = {
-    "appName": "fclfsm",
-    "locale": "us_en",
-    "step3URL": "https%3A%2F%2Fwww.fedex.com%2Fship%2FshipEntryAction.do?method=doRegistration%26locale=en_us%26urlparams=us%26sType=F%26action=fsmregister",
-    "afterwardsURL": "https%3A%2F%2Fwww.fedex.com%2Fship%2FshipEntryAction.do?method=doEntry%26locale=en_us%26urlparams=us%26sType=F",
-    "returnurl": "https%3A%2F%2Fwww.fedex.com%2Fship%2FshipEntryAction.do?method=doEntry%26locale=en_us%26urlparams=us%26sType=F",
-    "fclqrs": "",
-    "programIndicator": "",
-    "invitationError": "",
-    "addressType": "",
-    "fromLoginPage": "yes",
-    "cc_lang": "us",
-    "curl": "",
-    "surl": "",
-    "registrationType": "logon",
-    "lsession": "",
-    "ssoguest": "n",
-    "steps": "2",
-    "username": "userName",
-    "password": "userPaswd",
-    "startpage": "FSM",
-    "remusrid": "on",
-    "login": ""
-};
-
-let downloadform = {
-    "reportrequest":"",
-    "showonetime":"null",
-    "moverType":"listMover",
-    "action":"generate",
-    "preaction":"create",
-    "freeTextEntryRequired":"false",
-    "availAcctsExceededDispLimitFlag":"false",
-    "reportName":"",
-    "standardReport":"217",
-    "reportBaseType":"payer",
-    "accountType":"standardfedexaccounts",
-    "selectedAccountNumbers":["235101130","721459721"],
-    "selectedFilterColumn":"Show All",
-    "filterValueForSelectedColumn":"",
-    "StartWeek":"Start week",
-    "EndWeek":"End week",
-    "StartMonth":"Start month",
-    "EndMonth":"End month",
-    "reportOccurrence":"onetime",
-    "onetime_reportview":"weekly",
-    "onetimestarting_month":"4",
-    "onetimestarting_year":"2017",
-    "reportDateStart":"4/23/2017",
-    "onetimeending_month":"4",
-    "onetimeending_year":"2017",
-    "reportDateEnd":"4/29/2017"
-}
-
-let csvDownload = {
-    "pivotTableHtml":"",
-    "type" :"CSV",
-    "riID":"5065426"
-}
-
-let oneTrackReq = {"TrackPackagesRequest":{"appType":"WTRK","appDeviceType":"DESKTOP","uniqueKey":"","processingParameters":{},
-    "trackingInfoList":[
-        {"trackNumberInfo":{"trackingNumber":"{trackingNumber}","trackingQualifier":"","trackingCarrier":""}}
-        ]
-}};
-
-let trackPostFrom = {
-    "data":"",
-    "action":"trackpackages",
-    "locale":"en_US",
-    "version":"1",
-    "format":"json"
-}
-
-let tnums = ["778757646882", "778717233042", "778693875651", "778536741217", "778526583375",
-    "778490702328", "777995990030", "777995960760", "777995930080"];
-
 let cookiesCache = {};
 
-//processOneUser ("mtahardware1","","721459721");
+processOneUser ("mtahardware1","1907Fb1905Gs","721459721");
 
 //processClaimForm ("642755709303","155723013","E");
 
 let uri = "https://api-us-east-1.nd.nudatasecurity.com/1.0/w/65110/w-809838/captcha?type=VIDEO&lang=eng&index=0&token=1.w-809838.1.2.l7yccooHLger9ZMiP4d_rA,,.9tHOlkX-ARImo64IDe_BMtC7u2K6PM6pX1atd1LyQvx4njsj9H4ku3V2j7eIIwu7muOyNdOTcSSQP34XpFCRMgw9K2IGJmw9-xVQyWyZeg-PGOsKqzrDeF_yOi3PuTT4ivGJ84dty-V_jIdthWk390B1PeXgnco5SYA8bbtwg_NYr-2sQV9K5l8hOMjO7RFrmRq08RFkWIEAJAkvZ4RoQtBg33daBNuKMwEjdV60-7BmD8t19pZJFt7IKmfw6hrT_RAdkKy5OLpx8F64NwcKusH8lsSgW7Ir3sCMJ-QQ6RR12awQqC7uh88erdgzSAGTg6MUFopWlzy5DgOEDVALvxdYStcShmHPk0XhNbnpDEk,&r=rs-pnVdAkKLKeOT2KRpFqF3UQxx&ptype=SCRIPT"
 //obtainCaptcha(uri);
 
-function processOneUser (userName,userPassword)
+async function processOneUser (userName,userPassword)
 {
-  /*
-    let loginPromise = fedexLogin(userName,userPassword);
+
+    let loginRes = await fedexLogin(userName,userPassword);
     let newDownloadForm = prepareDownloadInputJson();
-    let promise2 = downloadDocument (loginPromise,newDownloadForm);
-    let promise3 = unzipReport(promise2);
-    let trackNumbersPromise =    collectTrackNumbers (promise3);
-    */
-    let trackNumbersPromise = Promise.try(function(){
-        return tnums;
-    });
-    let truckNumPromises = processAllTrackingNums(trackNumbersPromise);
-    Promise.all(truckNumPromises).then (result =>{
-        console.log ("processed all:"+JSON.stringify(result));
-        let refunds = result.filter(x=>x && x.isRefundEligible);
-        console.log (`Obtained ${refunds.length} refunds`);
-    })
+    let promise2 = await downloadDocument (loginRes,newDownloadForm);
+    let promise3 = await unzipReport();
+    let trackingNumbers =   collectTrackNumbers (promise3);
+
+    /*let trackNumbersPromise = Promise.try(function(){
+        return config.tnums;
+    });*/
+
+    let processedTrackingNums = await processAllTrackingNums(trackingNumbers);
+
+    console.log ("processed all:"+JSON.stringify(processedTrackingNums));
+    let refunds = processedTrackingNums.filter(x=>x && x.isRefundEligible);
+    console.log (`Obtained ${refunds.length} refunds`);
+    return refunds;
 }
 
-function processAllTrackingNums (trackNumsPromise)
+async function processAllTrackingNums (trackingNumbers)
 {
-    return  trackNumsPromise.then (trackingNumbers => {
-        return  Promise.try(function(){
-            return trackingNumbers.map (tnum =>{
-            let list = [{"trackNumberInfo":{"trackingNumber":tnum,"trackingQualifier":"","trackingCarrier":""}}];
-            let newTrackPostFrom =  JSON.parse(JSON.stringify(trackPostFrom));
-            let newOneTrackReq = JSON.parse(JSON.stringify(oneTrackReq));
-            newOneTrackReq.TrackPackagesRequest.trackingInfoList = list;
-            newTrackPostFrom.data = JSON.stringify(newOneTrackReq);
-            let result = getEstimatedDeliveryOfBlockNums (newTrackPostFrom);
-            return result.then (jsonRes => {
-                console.log ("Processing this record:"+JSON.stringify(jsonRes));
-                return processOneRec (jsonRes);
-            })
-        })});
-
-
+    let result = await trackingNumbers.map (tnum => {
+        let list = [{"trackNumberInfo": {"trackingNumber": tnum, "trackingQualifier": "", "trackingCarrier": ""}}];
+        let newTrackPostFrom = JSON.parse(JSON.stringify(config.trackPostFrom));
+        let newOneTrackReq = JSON.parse(JSON.stringify(config.oneTrackReq));
+        newOneTrackReq.TrackPackagesRequest.trackingInfoList = list;
+        newTrackPostFrom.data = JSON.stringify(newOneTrackReq);
+        let jsonRes = getEstimatedDeliveryOfBlockNums(newTrackPostFrom);
+        console.log("Processing this record:" + JSON.stringify(jsonRes));
+        return processOneRec(jsonRes)
     });
+    return result;
 }
 
 function calculateExpectedTime (transitType,shippedTime)
@@ -225,14 +142,14 @@ function processOneRec (oneTrackRecord) {
     });
 }
 
-function unzipReport (prevPromise)
+async function unzipReport (prevPromise)
 {
-    return prevPromise.then(x=> {
+
         let fn = "tmp/report.zip";
         let promiseExract = Promise.promisify(extract);
-        let promiseObj = promiseExract(fn, {dir: "/tmp"});
-        return promiseObj;
-    });
+        let unzippedRes = await promiseExract(fn, {dir: "/tmp"});
+        return unzippedRes;
+
 }
 
 function prepareDownloadInputJson (startDate,endDate)
@@ -240,27 +157,27 @@ function prepareDownloadInputJson (startDate,endDate)
     //downloadform
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var copyToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     //regard last Sunday as today
     today = new Date(today.setDate(today.getDate()-today.getDay()-1));
-    var oneWeekBefore = new Date(today.setDate(today.getDate()-today.getDay()-1));
+    var oneWeekBefore = new Date(copyToday.setDate(copyToday.getDate()-copyToday.getDay()-1));
     oneWeekBefore.setDate(today.getDate() - 6);
     if (startDate)
         oneWeekBefore = startDate;
     if (endDate)
         today = endDate;
-    downloadform.onetimeending_month = (today.getMonth()+1).toString();
-    downloadform.onetimestarting_month = (oneWeekBefore.getMonth()+1).toString();
-    downloadform.onetimeending_year = today.getFullYear().toString();
-    downloadform.onetimestarting_year =  oneWeekBefore.getFullYear().toString();
-    downloadform.reportDateEnd = today.toLocaleDateString();
-    downloadform.reportDateStart =  oneWeekBefore.toLocaleDateString();
+    var downloadform = config.downloadform;
+   //fedex changed those following 4 fields to -1
+    //fedex changed the format of date
+    downloadform.reportDateEnd = `${today.getMonth()+1}/${today.getDate()}/${today.getFullYear()}`;////today.toLocaleDateString();
+    downloadform.reportDateStart =  `${oneWeekBefore.getMonth()+1}/${oneWeekBefore.getDate()}/${oneWeekBefore.getFullYear()}`;//oneWeekBefore.toLocaleDateString();
     return downloadform;
 }
 
-function collectTrackNumbers (promise)
+function collectTrackNumbers ()
 {
-    return promise.then (x=> {
+
         let files = fs.readdirSync("/tmp");
         let fn = files.filter(x=>x.match(/^FedEx_Shipment_Detail_Payer_Detail/))[0]
         let contents = fs.readFileSync(`/tmp/${fn}`);
@@ -270,10 +187,8 @@ function collectTrackNumbers (promise)
             return x["Shipment Tracking Number"].trim();
         });
         console.log("tracking number=" + JSON.stringify(trackingNumbers));
-        return Promise.try(function(){
-            return trackingNumbers;
-        })
-    })
+        return trackingNumbers
+
 }
 
 
@@ -286,55 +201,65 @@ function reportDownloadProcess (loginPromise)
     })
 }
 
-function fedexLogin(userName,userPaswd) {
+async function fedexLogin(userName,userPaswd) {
+    let loginform = JSON.parse(JSON.stringify(config.loginform));
     loginform.username = userName;
     loginform.password = userPaswd;
     let optionsforPost = getOptionsForPost(loginform,fedexURL);
-    return rp(optionsforPost)
+    let loginResult = await rp(optionsforPost);
+    return await rp(optionsforPost)
 }
 
-function downloadDocument(loginPromise,downloadform) {
+async function downloadDocument(loginRes,downloadform) {
 
     console.log("donwloadDocument");
-    return loginPromise.then(res=>{
-        let uri = "https://www.fedex.com/reporting/StandardReports.do";
-        let options =  getOptionsForPost(downloadform,uri,res);
-        options.headers.Referer = uri+"?action=create&standardreporttype=217";
-        return rp (options)
-    }).then (res=>{
-        let accNums = findAccNumbers (res.body);
-        let uri = "https://www.fedex.com/reporting/StandardReports.do";
-        downloadform.selectedAccountNumbers = accNums;
-        let options =  getOptionsForPost(downloadform,uri,res);
-        return rp (options)
-    }).then (res=>{
-        let uri = "https://www.fedex.com/reporting/PrepareReport.do";
-        let options =  getOptionsForGet(uri,res);
-        return rp (options)
-    }).then (res=>{
-        let options =  getOptionsForGet(fedexDownloadUrl,res);
-        options.Referer = "https://www.fedex.com/reporting/PrepareReport.do";
-        return rp (options)
-    }).then(res=>{
-        let rid = res.body.match(/requestFileDownloadx\((\d+)/)[1];
-        let uri = `https://www.fedex.com/reporting/download/report/fcro_report_CSV_${rid}.zip`;
-        let options =  getOptionsForPost(csvDownload,uri,res);
-        options.encoding = "binary";
-        return rp (options)
-    }).then (res=> {
-        console.log("download completed!!");
-        fs.writeFileSync("tmp/report.zip", res.body, 'binary');
-        return Promise.try(function(){
-            return res.body;
-        })
-    })
+
+    var uri = "https://www.fedex.com/reporting/MainPage.do";
+    var options =  getOptionsForGet(uri,loginRes);
+    var getres =  await rp (options);
+    console.log ("MainPage");
+
+    uri = "https://www.fedex.com/reporting/StandardReports.do?action=create&standardreporttype=217";
+    options =  getOptionsForGet(uri,getres);
+    getres =  await rp (options);
+    console.log ("Get standard report form");
+
+    let accNums = findAccNumbers (getres.body);
+    uri = "https://www.fedex.com/reporting/StandardReports.do";
+    downloadform.selectedAccountNumbers = accNums;
+    options =  getOptionsForPost(downloadform,uri,getres);
+    options.headers.Referer = uri+"?action=create&standardreporttype=217";
+    var postRes =  await rp (options);
+    console.log ("StandardReports");
+
+    uri = "https://www.fedex.com/reporting/PrepareReport.do";
+    options =  getOptionsForGet(uri,postRes);
+    postRes =  await rp (options);
+    console.log ("PrepareReport");
+
+    options =  getOptionsForGet(fedexDownloadUrl,postRes);
+    options.Referer = "https://www.fedex.com/reporting/DownloadPage.do";
+    postRes = await rp (options);
+    console.log ("reporting/DownloadPage");
+
+    let rid = postRes.body.match(/requestFileDownloadx\((\d+)/)[1];
+    uri = `https://www.fedex.com/reporting/download/report/fcro_report_CSV_${rid}.zip`;
+    options =  getOptionsForPost(config.csvDownload,uri,postRes);
+    options.encoding = "binary";
+    postRes = await rp (options);
+    console.log ("requestFileDownloadx");
+
+    console.log("download completed!!");
+    fs.writeFileSync("tmp/report.zip", postRes.body, 'binary');
+    return postRes.body;
+
 }
 
 function findAccNumbers (body)
 {
     var accountNumbers = []
     var $ = cheerio.load(body);
-    var options = $("select[name=availableAccountNumbers] option");
+    var options = $("select[name=availableAccountNumbers] option,select[name=selectedAccountNumbers] option"); //
     options.each(function(index){
         accountNumbers.push($(this).attr("value"))
     });
@@ -362,7 +287,7 @@ function getEstimatedDeliveryDate (trackingNumber)
 function getEstimatedDeliveryDateFromPost (trackingNumber)
 {
     var uri = fedexTrackPostCall;
-    let form = JSON.parse(JSON.stringify(trackPostFrom));
+    let form = JSON.parse(JSON.stringify(config.trackPostFrom));
     form.data = form.data.replace (/\{trackingNumber\}/,trackingNumber);
     let options =  getOptionsForPost(form,uri);
 
@@ -376,20 +301,14 @@ function getEstimatedDeliveryDateFromPost (trackingNumber)
     })
 };
 
-function getEstimatedDeliveryOfBlockNums (trackingFormObject)
+async function getEstimatedDeliveryOfBlockNums (trackingFormObject)
 {
 
     let form = JSON.parse(JSON.stringify(trackingFormObject));
     let options =  getOptionsForPost(form,fedexTrackPostCall);
 
-    return rp(options).then (res=>{
-        let sp = JSON.parse(res.body);
-        //let estimatedTime = sp.TrackPackagesResponse.packageList[0].standardTransitTimeWindow.displayStdTransitTimeEnd;
-        //let estimatedDate = sp.TrackPackagesResponse.packageList[0].standardTransitDate.displayStdTransitDate;
-        return Promise.try(function(){
-            return sp;
-        })
-    })
+    let res = await rp(options);
+    return JSON.parse(res.body);
 };
 
 function getOp (promise,localCookieCash)
@@ -473,7 +392,7 @@ function getOptionsForPost (formData,uri,res) {
         uri: uri,
         body: formData,
         method: 'POST',
-        followRedirect: false,
+        followRedirect: true,
         simple: false
     };
     if (cookies)

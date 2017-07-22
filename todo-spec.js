@@ -1,6 +1,9 @@
+
+
 describe('angularjs homepage todo list', function() {
     it('should add a todo', function() {
         var util = require("./fedexUtils");
+        var Promise = require("bluebird");
 
         browser.ignoreSynchronization = true;
         browser.get('https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english');
@@ -24,15 +27,29 @@ describe('angularjs homepage todo list', function() {
         browser.driver.wait(function() {
             return browser.driver.findElement(by.id('nucaptcha-media'))
                 .then(function(elem) {
-                    console.log ("nucaptcha-media osk:"+elem.getAttribute("src"));
                     return elem.getAttribute("src").then (x=>{
-                        console.log ("XXXXXX:"+x);
-                        var captchaPromise = util.obtainCaptcha(x);
-                        return captchaPromise.then (x=>{
-                            console.log (x);
-                            browser.driver.findElement(by.id('nucaptcha-answer')).sendKeys(x);
-                            browser.driver.findElement(by.xpath("//input[@type='SUBMIT']")).click();
-                        })
+                        console.log (" elem.getAttribut:"+x);
+                        var captchaPromise;
+                        browser.controlFlow().execute(function() {
+                            captchaPromise = util.obtainCaptcha(x);
+                            console.log ("First block")
+                        },5000);
+
+                        browser.controlFlow().execute(function() {
+                            browser.driver.wait(function () {
+                                console.log ("Second block")
+                                return Promise.all([captchaPromise]);
+                            }, 15000);
+                        });
+
+                        browser.controlFlow().execute(function() {
+                            captchaPromise.then(x=> {
+                                console.log ("Third block")
+                                console.log(x);
+                                browser.driver.findElement(by.id('nucaptcha-answer')).sendKeys(x);
+                                browser.driver.findElement(by.xpath("//input[@type='SUBMIT']")).click();
+                            })
+                        },5000);
                     })
                     return true;
                 });
