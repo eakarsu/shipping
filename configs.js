@@ -1,3 +1,5 @@
+var outputFolder = "tmp";
+
 var loginform = {
     "appName": "fclfsm",
     "locale": "us_en",
@@ -81,3 +83,4 @@ exports.oneTrackReq = oneTrackReq;
 exports.csvDownload = csvDownload;
 exports.downloadform = downloadform;
 exports.loginform = loginform;
+exports.outputFolder=outputFolder;
