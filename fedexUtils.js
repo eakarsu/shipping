@@ -52,7 +52,8 @@ async function processOneUser(userName, userPassword) {
 }
 
 async function processAllTrackingNums(trackingNumbers) {
-    let result = await trackingNumbers.map(async tnum => {
+    let result = [];
+    for (let tnum of trackingNumbers) {
         let list = [{"trackNumberInfo": {"trackingNumber": tnum, "trackingQualifier": "", "trackingCarrier": ""}}];
         let newTrackPostFrom = JSON.parse(JSON.stringify(config.trackPostFrom));
         let newOneTrackReq = JSON.parse(JSON.stringify(config.oneTrackReq));
@@ -60,9 +61,9 @@ async function processAllTrackingNums(trackingNumbers) {
         newTrackPostFrom.data = JSON.stringify(newOneTrackReq);
         let jsonRes = await getEstimatedDeliveryOfBlockNums(newTrackPostFrom);
         console.log("Processing this record:" + JSON.stringify(jsonRes));
-        return processOneRec(jsonRes)
-    });
-    return await result;
+        result.push(processOneRec(jsonRes));
+    };
+    return  result;
 }
 
 function calculateExpectedTime(transitType, shippedTime) {
@@ -112,7 +113,14 @@ function calculateExpectedTime(transitType, shippedTime) {
         d.setHours(8);
         d.setMinutes(30)
     };
-    rules[transitType](shippedTime);
+    rules["FedEx International Economy"] = d => {
+        d.setDate(d.getDate() + 6);
+    };
+    if (rules[transitType])
+        rules[transitType](shippedTime);
+    else {
+        console.log (`${transitType} is not configured yet`)
+    }
     return shippedTime.toLocaleString();
 }
 
