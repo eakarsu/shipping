@@ -19,4 +19,10 @@ router.get('/check/tracknum/:tracknum', async  function(req, res, next) {
     res.json(refundsRecord);
 });
 
+router.get('/toggle/tracknum/:tracknum', async  function(req, res, next) {
+    var tracknum = req.params.tracknum;
+    let refundsRecord = await fedexUtils.toggleRefundEligibility(tracknum);
+    res.json({res:refundsRecord});
+});
+
 module.exports = router;

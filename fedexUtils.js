@@ -29,8 +29,9 @@ let cookiesCache = {};
 
 try {
     //processOneUser("mtahardware1", "1907Fb1905Gs");
+    //toggleRefundEligibility ("642755704003");
 }catch (ex){
-    console.log ("errr:"+er);
+    console.log ("errr:"+ex);
 }
 
 //processClaimForm ("642755709303","155723013","E");
@@ -79,6 +80,35 @@ async function processOneTrackNum (tnum)
     console.log("Processing this record:" + JSON.stringify(jsonRes));
     let result = processOneRec(jsonRes);
     return result;
+}
+
+async function toggleRefundEligibility (tnum)
+{
+    var success = true;
+    try {
+        const mysql = require('mysql2/promise');
+        var connection = await mysql.createConnection({
+            host: config.dbHostname,
+            user: config.user,
+            password: config.password
+        });
+        let query = `SELECT * FROM refund.fedex WHERE trkNbr=${tnum}`;
+        let [rows, fields, err] = await connection.query(query);
+
+        if (rows.length == 1) {
+            let row = rows[0];
+            let newStatus = row.refund_status == 'ONTIME' ? 'ELIGIBLE' : 'ONTIME';
+            let updateQuery = `UPDATE refund.fedex SET refund_status='${newStatus}' WHERE trkNbr=${tnum}`;
+            let [rows2, fields2] = await connection.query(updateQuery);
+            console.log("DB updated");
+        }
+        console.log("results:" + JSON.stringify(rows) );
+        connection.destroy();
+    }catch (er){
+        console.log("Go mysql exception:"+er);
+        success = false;
+    }
+    return success;
 }
 
 function calculateExpectedTime(transitType, shippedTime) {
@@ -623,3 +653,4 @@ function findClaimData(resp, trackingNumber, invoiceNumber) {
 exports.obtainCaptcha = obtainCaptcha;
 exports.processOneUser=processOneUser;
 exports.processOneTrackNum=processOneTrackNum;
+exports.toggleRefundEligibility=toggleRefundEligibility;

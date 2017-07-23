@@ -74,14 +74,17 @@ let trackPostFrom = {
     "format":"json"
 }
 
-let tnums = ["778757646882", "778717233042", "778693875651", "778536741217", "778526583375",
-    "778490702328", "777995990030", "777995960760", "777995930080"];
+let dbHostname="localhost";
+let user="";
+let password="";
 
-exports.tnums = tnums;
 exports.trackPostFrom = trackPostFrom;
 exports.oneTrackReq = oneTrackReq;
 exports.csvDownload = csvDownload;
 exports.downloadform = downloadform;
 exports.loginform = loginform;
 exports.outputFolder=outputFolder;
+exports.dbHostname=dbHostname;
+exports.user=user;
+exports.password=password;
 
