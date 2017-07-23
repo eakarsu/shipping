@@ -13,4 +13,10 @@ router.get('/update/user/:userid', async  function(req, res, next) {
     res.json(refundsRecord);
 });
 
+router.get('/check/tracknum/:tracknum', async  function(req, res, next) {
+    var tracknum = req.params.tracknum;
+    let refundsRecord = await fedexUtils.processOneTrackNum(tracknum);
+    res.json(refundsRecord);
+});
+
 module.exports = router;

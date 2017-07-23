@@ -60,16 +60,25 @@ async function processOneUser(userName, userPassword) {
 async function processAllTrackingNums(trackingNumbers) {
     let result = [];
     for (let tnum of trackingNumbers) {
-        let list = [{"trackNumberInfo": {"trackingNumber": tnum, "trackingQualifier": "", "trackingCarrier": ""}}];
-        let newTrackPostFrom = JSON.parse(JSON.stringify(config.trackPostFrom));
-        let newOneTrackReq = JSON.parse(JSON.stringify(config.oneTrackReq));
-        newOneTrackReq.TrackPackagesRequest.trackingInfoList = list;
-        newTrackPostFrom.data = JSON.stringify(newOneTrackReq);
-        let jsonRes = await getEstimatedDeliveryOfBlockNums(newTrackPostFrom);
+        let jsonRes = await processOneTrackNum(tnum);
         console.log("Processing this record:" + JSON.stringify(jsonRes));
-        result.push(processOneRec(jsonRes));
+        result.push(jsonRes);
     };
     return  result;
+}
+
+async function processOneTrackNum (tnum)
+{
+    let list = [{"trackNumberInfo": {"trackingNumber": tnum, "trackingQualifier": "", "trackingCarrier": ""}}];
+    let newTrackPostFrom = JSON.parse(JSON.stringify(config.trackPostFrom));
+    let newOneTrackReq = JSON.parse(JSON.stringify(config.oneTrackReq));
+    newOneTrackReq.TrackPackagesRequest.trackingInfoList = list;
+    newTrackPostFrom.data = JSON.stringify(newOneTrackReq);
+    let jsonRes = await getEstimatedDeliveryOfBlockNums(newTrackPostFrom);
+
+    console.log("Processing this record:" + JSON.stringify(jsonRes));
+    let result = processOneRec(jsonRes);
+    return result;
 }
 
 function calculateExpectedTime(transitType, shippedTime) {
@@ -613,3 +622,4 @@ function findClaimData(resp, trackingNumber, invoiceNumber) {
 
 exports.obtainCaptcha = obtainCaptcha;
 exports.processOneUser=processOneUser;
+exports.processOneTrackNum=processOneTrackNum;
