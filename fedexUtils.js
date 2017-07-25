@@ -170,37 +170,41 @@ function calculateExpectedTime(transitType, shippedTime) {
 }
 
 function processOneRec(oneTrackRecord) {
+    var transitType,trackingNum,expectedTime,expectedDate,deliveryTime,deliveryDate,shippedTime;
     let nodes = jp.nodes(oneTrackRecord, "$..*[?(@.isException == true)].status")
-    let isException = nodes.length > 0;
+    let isDeliveryException = nodes.length > 0;
     //If there is exception, disregard the processing this tracking result.
-    if (isException) {
+    if (isDeliveryException) {
         console.log("This tracking record has expception :" + oneTrackRecord);
-        return;
+        isRefundEligible = false;
     }
-    let transitType = jp.query(oneTrackRecord, "$..serviceDesc")[0];
-    if (transitType.match(/Fedex Ground/)) {
-        console.log("Fedex Ground")
-    } else if (transitType.match(/Express/)) {
-        console.log("Fedex Express")
+    else {
+        transitType = jp.query(oneTrackRecord, "$..serviceDesc")[0];
+        if (transitType.match(/Fedex Ground/)) {
+            console.log("Fedex Ground")
+        } else if (transitType.match(/Express/)) {
+            console.log("Fedex Express")
+        }
+        trackingNum = jp.query(oneTrackRecord, "$..trackingNbr")[0];
+        expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd")[0];
+        expectedDate = jp.query(oneTrackRecord, "$..displayStdTransitDate")[0];
+        deliveryTime = jp.query(oneTrackRecord, "$..displayActDeliveryDateTime")[0];
+        deliveryDate = jp.query(oneTrackRecord, "$..displayActDeliveryDt")[0];
+        shippedTime = jp.query(oneTrackRecord, "$..shipDt")[0];
+        var succ = true;
+        if (expectedTime == "") {
+            console.log("Can not calculate estimated time. Manually doing it now")
+            expectedTime = calculateExpectedTime(transitType, shippedTime);
+            succ = false;
+        }
+        //For ground, ignore time delivered. If it is delivered in same date, then it is ok
+        //Got non-ground, take day and time, calculate eligiblity
+        var isRefundEligible;
+        if (transitType.match(/Ground/))
+            isRefundEligible = new Date(deliveryDate).getTime() > new Date(expectedDate).getTime();
+        else
+            isRefundEligible = new Date(deliveryTime).getTime() > new Date(expectedTime).getTime();
     }
-    let trackingNum = jp.query(oneTrackRecord, "$..trackingNbr")[0];
-    var expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd")[0];
-    let expectedDate = jp.query(oneTrackRecord, "$..displayStdTransitDate")[0];
-    let deliveryTime = jp.query(oneTrackRecord, "$..displayActDeliveryDateTime")[0];
-    let deliveryDate = jp.query(oneTrackRecord, "$..displayActDeliveryDt")[0];
-    let shippedTime = jp.query(oneTrackRecord, "$..shipDt")[0];
-    var succ = true;
-    if (expectedTime == "") {
-        expectedTime = calculateExpectedTime(transitType, shippedTime);
-        succ = false;
-    }
-    //For ground, ignore time delivered. If it is delivered in same date, then it is ok
-    //Got non-ground, take day and time, calculate eligiblity
-    var isRefundEligible;
-    if (transitType.match(/Ground/))
-        isRefundEligible = new Date(deliveryDate).getTime() > new Date(expectedDate).getTime();
-    else
-        isRefundEligible = new Date(deliveryTime).getTime() > new Date(expectedTime).getTime();
     let result =
         {
             trackingNum: trackingNum,
@@ -208,6 +212,7 @@ function processOneRec(oneTrackRecord) {
             deliveryTime: deliveryTime,
             shippedTime: shippedTime,
             isRefundEligible: isRefundEligible,
+            isDeliveryException:isDeliveryException,
             transitType: transitType,
             autoCalculateSucc: succ,
             details: oneTrackRecord
