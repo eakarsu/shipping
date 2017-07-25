@@ -46,7 +46,8 @@ async function processOneUser(userName, userPassword) {
     let newDownloadForm = prepareDownloadInputJson();
     let zipFileContent = await downloadDocument(loginRes, newDownloadForm);
     let csvFileName = await unzipReport(zipFileContent);
-    let trackingNumbers = collectTrackNumbers(csvFileName);
+    let trackRecords = collectTrackNumbers(csvFileName);
+    let trackingNumbers = trackRecords.trackingNumbers;
 
     let processedTrackingNums = await processAllTrackingNums(trackingNumbers);
 
@@ -54,7 +55,7 @@ async function processOneUser(userName, userPassword) {
     let refunds = processedTrackingNums.filter(x => x && x.isRefundEligible);
     console.log(`Obtained ${refunds.length} refunds`);
 
-    let result = {refunds:refunds,records:processedTrackingNums};
+    let result = {refunds:refunds,records:processedTrackingNums,csvFile:trackRecords.csvRecords};
     return result;
 }
 
@@ -266,11 +267,14 @@ function collectTrackNumbers(csvFileName) {
     let contents = fs.readFileSync(csvFileName);
     var records = csvparse(contents, {columns: true});
     console.log("read and parsed csv file");
+    let csvMap = new Map();
     let trackingNumbers = records.map(x => {
-        return x["Shipment Tracking Number"].trim();
+        let trackNum = x["Shipment Tracking Number"].trim();
+        csvMap.set(trackNum,x);
+        return trackNum;
     });
     console.log("tracking number=" + JSON.stringify(trackingNumbers));
-    return trackingNumbers
+    return {trackingNumbers:trackingNumbers,csvMap:csvMap};
 
 }
 

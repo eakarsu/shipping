@@ -78,6 +78,50 @@ let dbHostname="localhost";
 let user="";
 let password="";
 
+let colMap=[
+    { csv: 'trkNbr', rcv: 'Shipment Tracking Number' },
+    { csv: 'dispShpDt', rcv: 'Shipment Date' },
+    { csv: 'dispEstDelDt', rcv: '' }, //To be calculated form isRefundEligible column
+    { csv: 'statBarCD', rcv: 'details.TrackPackagesResponse.packageList[0].keyStatus' },
+    { csv: 'srvDesc', rcv: 'details.TrackPackagesResponse.packageList[0].serviceDesc' },
+    { csv: 'recpCoNm', rcv: 'Recipient Company Name' },
+    { csv: 'recpAddr1', rcv: 'Shipper Address' },
+    { csv: 'recpCity', rcv: 'Shipper City' },
+    { csv: 'recpNm', rcv: 'Shipper Name' },
+    { csv: 'recpCntryCD', rcv: 'Recipient Country' },
+    { csv: 'recpZip', rcv: 'Recipient Postal Code' },
+    { csv: 'recpStCD', rcv: 'Recipient State' },
+    { csv: 'shprCoNm', rcv: 'Shipper Company Name' },
+    { csv: 'shprAddr1', rcv: 'Shipper Address' },
+    { csv: 'shprCity', rcv: 'Shipper City' },
+    { csv: 'shprNm', rcv: 'Shipper Name' },
+    { csv: 'shprCntryCD', rcv: 'Shipper Country' },
+    { csv: 'shprZip', rcv: 'Shipper Postal Code' },
+    { csv: 'shprStCD', rcv: 'Shipper State' },
+    { csv: 'invNbr', rcv: 'Invoice number' },
+    { csv: 'orgPiecCt', rcv: 'Pieces in Shipment' },
+    { csv: 'pkgType', rcv: 'Package Type' },
+    { csv: 'dispTotLbsWt', rcv: 'Original weight' },
+    { csv: 'update_date', rcv: 'details.TrackPackagesResponse.packageList[0].scanEventList[last()].date and time' },
+    { csv: 'memberid', rcv: 'memberid from member table' },
+    { csv: 'api_sent', rcv: '????' },
+    { csv: 'service', rcv: 'details.TrackPackagesResponse.packageList[0].serviceCD' },
+    { csv: 'actual_delivery', rcv: 'deliveryTime' },
+    { csv: 'actual_pickup', rcv: 'details.TrackPackagesResponse.packageList[0].displayPickupDateTime' },
+    { csv: 'ship_date', rcv: 'details.TrackPackagesResponse.packageList[0].shipDt' },
+    //Usually take the date form these columns. Try to add the time to the day based on service. Priority by 8:30 AM like this
+    { csv: 'actual_estimated_date', rcv: 'expectedTime or $..stdTransitTimeEnd' },
+    { csv: 'anticipated_tender', rcv: '..tenderedDt' },
+    { csv: 'actual_tender', rcv: '..tenderedDt?????' },
+    { csv: 'refund_status', rcv: '' }, //to be calculated isRefundEligible field
+    { csv: 'amount', rcv: '' }, //to be calculated
+    { csv: 'accountnbr', rcv: 'Payer Account' },
+    { csv: 'shipAmount', rcv: 'Shipment Freight Charge Amount' },
+    { csv: 'shipMiscChrg', rcv: 'Shipment Miscellaneous Charge' },
+    { csv: 'shipTaxChrg', rcv: 'Shipment Duty and Tax Charge' },
+    { csv: 'shipDiscAmount', rcv: 'Shipment Discount Amount' }
+];
+
 exports.trackPostFrom = trackPostFrom;
 exports.oneTrackReq = oneTrackReq;
 exports.csvDownload = csvDownload;
@@ -87,4 +131,5 @@ exports.outputFolder=outputFolder;
 exports.dbHostname=dbHostname;
 exports.user=user;
 exports.password=password;
+exports.insertColumns=insertColumns;
 
