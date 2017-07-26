@@ -187,9 +187,9 @@ function processOneRec(oneTrackRecord) {
             console.log("Fedex Express")
         }
         trackingNum = jp.query(oneTrackRecord, "$..trackingNbr")[0];
-        expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd")[0];
+        expectedTime = jp.query(oneTrackRecord, "$..expectedTime")[0].replace(/(\+|\-)\d{2}\:\d{2}/,"");
         expectedDate = jp.query(oneTrackRecord, "$..displayStdTransitDate")[0];
-        deliveryTime = jp.query(oneTrackRecord, "$..displayActDeliveryDateTime")[0];
+        deliveryTime = jp.query(oneTrackRecord, "$..actDeliveryDt")[0].replace(/(\+|\-)\d{2}\:\d{2}/,"");
         deliveryDate = jp.query(oneTrackRecord, "$..displayActDeliveryDt")[0];
         shippedTime = jp.query(oneTrackRecord, "$..shipDt")[0];
         var succ = true;

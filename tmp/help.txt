@@ -1,0 +1,92 @@
+
+SERVICE TYPES
+DOMESTIC EXPRESS SERVICES
+FO	FedEx First Overnight®
+PO      FedEx Priority Overnight® 
+SO	FedEx Standard Overnight® 
+E2      FedEx 2Day®
+ESP	FedEx Express Saver®
+F1	FedEx 1Day Freight®
+F2    	FedEx 2Day Freight®
+F3	FedEx 3Day Freight®
+E2AM    FedEx Express 2Day AM ®
+FFO     FedEx First Overnight Expres Freight®
+OTHER	Additional Charges and Services
+NonTrans Non-Transportation Related Charges
+	
+INTERNATIONAL EXPRESS SERVICES
+IF	FedEx International First®
+IP	FedEx International Priority® 
+IE      FedEx International Economy® 
+IPF	FedEx International Priority® Freight
+IEF	FedEx International Economy® Freight
+IPD	FedEx International Priority DirectDistribution®
+IED	FedEx International Economy DirectDistribution®
+IDF	FedEx International Priority DirectDistribution Freight
+TD	FedEx Transborder Distribution
+IPR	FedEx International MailService® Premium
+IPS     FedEx International MailService® Standard
+OTHER	Additional Charges and Services
+NonTrans Non-Transportation Related Charges
+	
+DOMESTIC GROUND SERVICES
+GR	FedEx Ground®
+HD      FedEx Home Delivery® 
+MWT	FedEx Ground Multiweight®
+CTAG	FedEx Ground® Call Tag
+PRP	FedEx Ground® Package Returns Program
+RMGR	FedEx Return Manager
+CRTN	FedEx Returns System
+OTHER	Additional Charges and Services
+NonTrans Non-Transportation Related Charges (Weekly PU Fees)
+	
+INTERNATIONAL GROUND SERVICES
+IG 	FedEx International GroundSM 
+IGD	FedEx International Ground Distribution
+OTHER	Additional Charges and Services
+NonTrans Non-Transportation Related Charges (Weekly PU Fees)
+
+SMARTPOST
+IRTN		FEDEX SMARTPOST INTERNATIONAL RETURNS
+SP		FEDEX SMARTPOST
+BPM		FEDEX SMARTPOST BOUND PRINTED MATERIAL
+RTN		FEDEX SMARTPOST RETURNS
+MED		FEDEX SMARTPOST MEDIA
+ISC		FEDEX SMARTPOST INTERNATIONAL
+
+PAY_TYPE DESCRIPTIONS
+Bill_Sender_Prepaid" "Bill Sender" means the specific charges were billed to the sender
+Bill_Recipient: "Bill Recipient" means the specific charges were billed to the recipient
+Bill_Third_Party: "Bill Third Party" means the specific charges were billed to someone other 
+than the Sender or the Recipient"
+
+SHIPMENT DIM FLAG (Y OR N)
+Y: Dimensional Rating applied
+N: Dimensional Rating NOT applied
+
+
+NOTES: PAYER DATA INCLUDES: BILL SENDER/PREPAID, BILL RECIPIENT, BILL THIRD PARTY, AND INBOUND COLLECT SHIPMENTS.
+       Whenever the term NULL is used in a report field, it signifies that there is no data to populate that field.
+       If you have any questions regarding the content of this report, please contact your FedEx Sales Representive.
+
+**NOTICE**						
+						
+CUSTOMER AGREES THIS REPORT CONTAINS FEDEX CONFIDENTIAL AND/OR PRIVILEGED 
+INFORMATION.  THE INTENT OF THE REPORT IS TO ALLOW THE CUSTOMER ACCESS TO 
+INFORMATION SOLELY FOR INTERNAL ANALYSIS OF TRENDS IN SHIPPING/INVOICE 
+ACTIVITY WITH FEDEX.  THIS INFORMATION IS BEING PROVIDED TO THE CUSTOMER 
+FOR EXCLUSIVE USE AND BENEFIT OF THE CUSTOMER AND IS PROVIDED SUBJECT TO 
+TERMS OF OUR MUTUAL CONFIDENTIALITY AGREEMENT.  THE INFORMATION MAY NOT BE 
+SHARED WITH ANY THIRD PARTY WITHOUT FEDEX’S WRITTEN CONSENT.  THIS 
+INFORMATION CANNOT BE USED TO FILE CLAIMS OR REQUEST REFUNDS OR INVOICE 
+ADJUSTMENTS.						
+						
+THIS REPORT IS NOT AN INVOICE.  IT MAY NOT CONTAIN FINAL INFORMATION WITH 
+RESPECT TO PARTICULAR SHIPMENTS.  A REDUCTION, ALLOWANCE, OR OTHER ADJUSTMENT, 
+MAY APPLY TO THE RATES AND CHARGES ON THIS REPORT.  THE REPORT MAY DIFFER 
+FROM OTHER REPORTS PROVIDED TO THE CUSTOMER BASED ON THE NATURE OF THE REQUEST, 
+THE TIME THAT DATA IS EXTRACTED, AND THE SOURCE FROM WHICH THE REPORT IS 
+GENERATED.  THE INFORMATION IS PROVIDED 'AS IS.'  FEDEX DISCLAIMS ALL 
+WARRANTIES, EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.						
+

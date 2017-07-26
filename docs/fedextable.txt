@@ -1,0 +1,60 @@
+  switch($serviceCodeMap[$trackingRec['srvDesc']]) {
+                          case 'FEDEX_GROUND':
+                              $interval = "P3DT17H";
+                              break;
+                          case 'GROUND_HOME_DELIVERY':
+                              $interval = "P1DT17H";
+                              break;
+                          case 'INTERNATIONAL_PRIORITY':
+                              $interval = "P3DT17H";
+                              break;
+                          case 'PRIORITY_OVERNIGHT': //Delivery by 10:30 a.m. the next business day to most areas; by noon, 4:30 p.m. or 5 p.m. to remote areas.
+                              $interval = "P1DT17H";
+                              break;
+                          case 'FEDEX_2_DAY': //Delivery by 4:30 p.m. in 2 business days to most areas, by 8 p.m. to residences.
+                              $interval = "P2DT20H";
+                              break;
+                          case 'FEDEX_2_DAY_AM': //Delivery by ???
+                              $interval = "P2DT10H30M";
+                              break;
+                          case 'STANDARD_OVERNIGHT': //Delivery by 3 p.m. the next business day to most areas, by 4:30 p.m. to rural areas and by 8 p.m. to residences.
+                              $interval = "P1DT20H";
+                              break;
+                          case 'PRIORITY_OVERNIGHT': //Delivery by
+                              $interval = "P1DT20H";
+                              break;
+                          case 'FEDEX_EXPRESS_SAVER': //Delivery by
+                              $interval = "P1DT20H";
+                              break;
+                        case 'INTERNATIONAL_ECONOMY':  //is our most cost-effective choice, delivering in 2 to 3 business days in Canada, Mexico and Puerto Rico and in 2 to 5 business days to more than 215 countries and territories.
+                              $interval = "P3DT23H59M";
+                              break;
+                          case 'EUROPE_FIRST_INTERNATIONAL_PRIORITY':  // is our most popular international service: delivery typically in 1, 2 or 3 business days to more than 220 countries and territories.
+                              $interval = "P1DT10H30M";
+                              break;
+                          case 'FEDEX_1_DAY_FREIGHT':
+                              $interval = "P1DT17H";
+                              break;
+                          case 'FEDEX_2_DAY_FREIGHT':
+                              $interval = "P2DT17H";
+                              break;
+                          case 'FEDEX_3_DAY_FREIGHT':
+                              $interval = "P3DT17H";
+                              break;
+                          case 'FEDEX_FIRST_FREIGHT':
+                              $interval = "P1DT17H";
+                              break;
+                          case 'INTERNATIONAL_PRIORITY_DISTRIBUTION':
+                              $interval = "P"._getBusinessDays($date->format('Y-m-d H:i:s'), 2)."DT20H";
+                              break;
+                          case 'INTERNATIONAL_ECONOMY':
+                              $interval = "P"._getBusinessDays($date->format('Y-m-d H:i:s'), 2)."DT20H";
+                              break;
+                          case 'INTERNATIONAL_PRIORITY_FREIGHT':
+                              $interval = "P"._getBusinessDays($date->format('Y-m-d H:i:s'), 4)."DT20H";
+                                case 'INTERNATIONAL_ECONOMY_FREIGHT':
+                                                            $interval = "P"._getBusinessDays($date->format('Y-m-d H:i:s'), 4)."DT20H";
+                                                            break;
+                                                        default:
+                                                            $interval = "P2DT20H";
+
