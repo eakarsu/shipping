@@ -122,6 +122,10 @@ let colMap=[
     { csv: 'shipDiscAmount', rcv: 'Shipment Discount Amount' }
 ];
 
+function insertColumns () {
+
+}
+
 exports.trackPostFrom = trackPostFrom;
 exports.oneTrackReq = oneTrackReq;
 exports.csvDownload = csvDownload;

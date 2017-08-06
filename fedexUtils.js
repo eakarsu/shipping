@@ -79,7 +79,14 @@ async function processOneTrackNum (tnum)
     let jsonRes = await getEstimatedDeliveryOfBlockNums(newTrackPostFrom);
 
     console.log("Processing this record:" + JSON.stringify(jsonRes));
-    let result = processOneRec(jsonRes);
+    var result;
+    try {
+        result = processOneRec(jsonRes);
+    }catch (ex){
+        console.log ("Exception in processOneTrackNum"+ ex)
+        result = {status:`Exception in processOneTrackNum=${tnum}`,
+            details: oneTrackRecord}
+    }
     return result;
 }
 
@@ -187,7 +194,17 @@ function processOneRec(oneTrackRecord) {
             console.log("Fedex Express")
         }
         trackingNum = jp.query(oneTrackRecord, "$..trackingNbr")[0];
-        expectedTime = jp.query(oneTrackRecord, "$..expectedTime")[0].replace(/(\+|\-)\d{2}\:\d{2}/,"");
+        expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd");
+        if (expectedTime[0])
+            expectedTime = expectedTime[0];
+        else {
+            expectedTime = jp.query(oneTrackRecord, "$..expectedTime");
+            if (expectedTime[0])
+                expectedTime = expectedTime[0].replace(/(\+|\-)\d{2}\:\d{2}/,"");
+            else{
+                console.log ("COULD not find expected date");
+            }
+        }
         expectedDate = jp.query(oneTrackRecord, "$..displayStdTransitDate")[0];
         deliveryTime = jp.query(oneTrackRecord, "$..actDeliveryDt")[0].replace(/(\+|\-)\d{2}\:\d{2}/,"");
         deliveryDate = jp.query(oneTrackRecord, "$..displayActDeliveryDt")[0];
