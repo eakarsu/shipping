@@ -23,7 +23,7 @@ var getConnect = async ()=> {
 
 
 var processAllUsers = async ()=>{
-    let conn = getConnect();
+    let conn = await getConnect();
     let [rows, fields] = await conn.query(userKeys);
     rows.forEach(user=>{
         let trackProcessRecords = fedexUtils.processOneUser (user.fedexlogin,user.fedexpasswd);
