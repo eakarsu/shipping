@@ -45,7 +45,12 @@ let test1 = ()=> {
     );
 }
 
+let test2 = async () => {
+    let res = await processAllUsers();
+    return res;
+}
 
+test2();
 
 exports.getConnect=getConnect;
 exports.processAllUsers=processAllUsers;

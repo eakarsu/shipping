@@ -39,6 +39,7 @@
     "request-promise": "^4.2.0",
     "selenium-webdriver": "^3.4.0",
     "serve-favicon": "~2.3.2",
-    "webdriverio": "^4.8.0"
+    "webdriverio": "^4.8.0",
+    "pm2": "^2.6.1"
   }
 }
