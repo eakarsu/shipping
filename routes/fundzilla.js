@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/update/user/:userid', async  function(req, res, next) {
     var userid = req.params.userid;
-    let refundsRecord = dbTools.processOneUser(userid);
+    let refundsRecord = await dbTools.processOneUser(userid);
     res.json(refundsRecord);
 });
 

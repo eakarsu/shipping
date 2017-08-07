@@ -42,7 +42,7 @@ let uri = "https://api-us-east-1.nd.nudatasecurity.com/1.0/w/65110/w-809838/capt
 //obtainCaptcha(uri);
 
 async function processOneUser(userId,userPassword) {
-    let loginRes = await fedexLogin(userName, userPassword);
+    let loginRes = await fedexLogin(userId, userPassword);
     let newDownloadForm = prepareDownloadInputJson();
     let zipFileContent = await downloadDocument(loginRes, newDownloadForm);
     let csvFileName = await unzipReport(zipFileContent);
@@ -65,7 +65,8 @@ async function processAllTrackingNums(trackingNumbers) {
     for (let tnum of trackingNumbers) {
         let jsonRes = await processOneTrackNum(tnum);
         console.log("Processing this record:" + JSON.stringify(jsonRes));
-        result.push(jsonRes);
+        if (!jsonRes.status.startsWith("Exception"))
+            result.push(jsonRes);
     };
     return  result;
 }
@@ -86,7 +87,7 @@ async function processOneTrackNum (tnum)
     }catch (ex){
         console.log ("Exception in processOneTrackNum"+ ex)
         result = {status:`Exception in processOneTrackNum=${tnum}`,
-            details: oneTrackRecord}
+            details: newOneTrackReq}
     }
     return result;
 }
