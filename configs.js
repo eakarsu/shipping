@@ -74,16 +74,16 @@ let trackPostFrom = {
     "format":"json"
 }
 
-let dbHostname="localhost";
-let user="";
-let password="";
+let dbHostname="162.243.203.26"; //"localhost"
+let user="eakarsu";
+let password="erol33";
 
 let colMap=[
     { dbc: 'trkNbr', rcv: 'Shipment Tracking Number' },
     { dbc: 'dispShpDt', rcv: 'Shipment Date' },
     { dbc: 'dispEstDelDt', rcv: '' }, //To be calculated form isRefundEligible column
-    { dbc: 'statBarCD', rcv: 'details.TrackPackagesResponse.packageList[0].keyStatus' },
-    { dbc: 'srvDesc', rcv: 'details.TrackPackagesResponse.packageList[0].serviceDesc' },
+    { dbc: 'statBarCD', rcv: '$..packageList[0].keyStatus' },
+    { dbc: 'srvDesc', rcv: '$..packageList[0].serviceDesc' },
     { dbc: 'recpCoNm', rcv: 'Recipient Company Name' },
     { dbc: 'recpAddr1', rcv: 'Shipper Address' },
     { dbc: 'recpCity', rcv: 'Shipper City' },
@@ -102,17 +102,17 @@ let colMap=[
     { dbc: 'orgPiecCt', rcv: 'Pieces in Shipment' },
     { dbc: 'pkgType', rcv: 'Package Type' },
     { dbc: 'dispTotLbsWt', rcv: 'Original weight' },
-    { dbc: 'update_date', rcv: 'details.TrackPackagesResponse.packageList[0].scanEventList[last()].date and time' },
+    { dbc: 'update_date', rcv: '$..scanEventList[0]' },
     { dbc: 'memberid', rcv: 'memberid from member table' },
     { dbc: 'api_sent', rcv: '????' },
-    { dbc: 'service', rcv: 'details.TrackPackagesResponse.packageList[0].serviceCD' },
-    { dbc: 'actual_delivery', rcv: 'deliveryTime' },
-    { dbc: 'actual_pickup', rcv: 'details.TrackPackagesResponse.packageList[0].displayPickupDateTime' },
-    { dbc: 'ship_date', rcv: 'details.TrackPackagesResponse.packageList[0].shipDt' },
+    { dbc: 'service', rcv: '$..packageList[0].serviceCD' },
+    { dbc: 'actual_delivery', rcv: '$..deliveryTime' },
+    { dbc: 'actual_pickup', rcv: '$..packageList[0].displayPickupDateTime' },
+    { dbc: 'ship_date', rcv: '$..packageList[0].shipDt' },
     //Usually take the date form these columns. Try to add the time to the day based on service. Priority by 8:30 AM like this
     { dbc: 'actual_estimated_date', rcv: 'expectedTime or $..stdTransitTimeEnd' },
-    { dbc: 'anticipated_tender', rcv: '..tenderedDt' },
-    { dbc: 'actual_tender', rcv: '..tenderedDt?????' },
+    { dbc: 'anticipated_tender', rcv: '$..tenderedDt' },
+    { dbc: 'actual_tender', rcv: '$..tenderedDt' },
     { dbc: 'refund_status', rcv: '' }, //to be calculated isRefundEligible field
     { dbc: 'amount', rcv: '' }, //to be calculated
     { dbc: 'accountnbr', rcv: 'Payer Account' },
@@ -121,10 +121,6 @@ let colMap=[
     { dbc: 'shipTaxChrg', rcv: 'Shipment Duty and Tax Charge' },
     { dbc: 'shipDiscAmount', rcv: 'Shipment Discount Amount' }
 ];
-
-function insertColumns () {
-
-}
 
 exports.trackPostFrom = trackPostFrom;
 exports.oneTrackReq = oneTrackReq;
@@ -135,5 +131,5 @@ exports.outputFolder=outputFolder;
 exports.dbHostname=dbHostname;
 exports.user=user;
 exports.password=password;
-exports.insertColumns=insertColumns;
+exports.colMap=colMap;
 

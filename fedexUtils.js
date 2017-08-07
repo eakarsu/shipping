@@ -26,6 +26,7 @@ let fedexTrackPostCall = "https://www.fedex.com/trackingCal/track";
 let fedexClaimUrl = "https://www.fedex.com/servlet/InvoiceServlet";
 let fedexClaimForm = "https://www.fedex.com/servlet/InvoiceServlet?link=2&jsp_name=adjustment&orig_country=US&language=english";
 let cookiesCache = {};
+let dbTools = require("./dboTools");
 
 try {
     //processOneUser("mtahardware1", "1907Fb1905Gs");
@@ -40,22 +41,30 @@ let uri = "https://api-us-east-1.nd.nudatasecurity.com/1.0/w/65110/w-809838/capt
 
 //obtainCaptcha(uri);
 
-async function processOneUser(userName, userPassword) {
+async function processOneUser(userId) {
 
+    /*
+    let userPassword = dbTools.getPassword(userId);
     let loginRes = await fedexLogin(userName, userPassword);
     let newDownloadForm = prepareDownloadInputJson();
     let zipFileContent = await downloadDocument(loginRes, newDownloadForm);
     let csvFileName = await unzipReport(zipFileContent);
+    */
+    let csvFileName = "docs/FedEx_Shipment_Detail_Payer_Detail_5065426.csv";
     let trackRecords = collectTrackNumbers(csvFileName);
     let trackingNumbers = trackRecords.trackingNumbers;
 
-    let processedTrackingNums = await processAllTrackingNums(trackingNumbers);
+
+    let subset = trackingNumbers.slice(0,5);
+    //let processedTrackingNums = await processAllTrackingNums(trackingNumbers);
+
+    let processedTrackingNums = await processAllTrackingNums(subset);
 
     console.log("processed all:" + JSON.stringify(processedTrackingNums));
     let refunds = processedTrackingNums.filter(x => x && x.isRefundEligible);
     console.log(`Obtained ${refunds.length} refunds`);
 
-    let result = {refunds:refunds,records:processedTrackingNums,csvFile:trackRecords.csvRecords};
+    let result = {refunds:refunds,records:processedTrackingNums,csvMap:trackRecords.csvMap};
     return result;
 }
 
@@ -195,13 +204,14 @@ function processOneRec(oneTrackRecord) {
         }
         trackingNum = jp.query(oneTrackRecord, "$..trackingNbr")[0];
         expectedTime = jp.query(oneTrackRecord, "$..stdTransitTimeEnd");
-        if (expectedTime[0])
+        if (expectedTime[0] && expectedTime[0]  != "")
             expectedTime = expectedTime[0];
         else {
             expectedTime = jp.query(oneTrackRecord, "$..expectedTime");
-            if (expectedTime[0])
+            if (expectedTime[0] && expectedTime[0]  != "")
                 expectedTime = expectedTime[0].replace(/(\+|\-)\d{2}\:\d{2}/,"");
             else{
+                expectedTime ="";
                 console.log ("COULD not find expected date");
             }
         }
@@ -211,7 +221,7 @@ function processOneRec(oneTrackRecord) {
         shippedTime = jp.query(oneTrackRecord, "$..shipDt")[0];
         var succ = true;
         if (expectedTime == "") {
-            console.log("Can not calculate estimated time. Manually doing it now")
+            console.log("Can not calculate estimated time. Manually doing it now:"+transitType+":"+trackingNum)
             expectedTime = calculateExpectedTime(transitType, shippedTime);
             succ = false;
         }
@@ -404,7 +414,12 @@ async function getEstimatedDeliveryOfBlockNums(trackingFormObject) {
     let options = getOptionsForPost(form, fedexTrackPostCall);
 
     let res = await rp(options);
-    return JSON.parse(res.body);
+    console.log ("res:"+JSON.stringify(res.body));
+    var result;
+    try {
+        result = JSON.parse(res.body);
+    }catch (ex){}
+    return result;
 };
 
 function getOp(promise, localCookieCash) {
@@ -680,3 +695,4 @@ exports.obtainCaptcha = obtainCaptcha;
 exports.processOneUser=processOneUser;
 exports.processOneTrackNum=processOneTrackNum;
 exports.toggleRefundEligibility=toggleRefundEligibility;
+exports.collectTrackNumbers=collectTrackNumbers;
