@@ -33,34 +33,40 @@ var getPassword = async (userid) =>{
 };
 
 var processAllUsers = async ()=>{
+    let resAll = [];
     let conn = await getConnect();
     let [rows, fields] = await conn.query(userKeys);
     rows.forEach(async user=>{
         let passwd =  Buffer.from(user.fedexpasswd.toString(), 'base64').toString();
         console.log (`${passwd}${user.fedexlogin}`)
         try {
-            let results = processOneUserExt(user.fedexlogin,passwd,conn);
+            let trackProcessRecords = await fedexUtils.processOneUser(userId, passwd);
+            let results = processOneUserExt(user.fedexlogin,passwd,trackProcessRecords,conn);
+            results.push(results)
         }catch (ex){
             console.log ("Exception:"+ex);
         }
     })
     conn.destroy();
+    return resAll;
 }
 
 var processOneUser = async (userId)=>{
     let conn = await getConnect();
+    var trackProcessRecords;
     try {
         let passwd = await getPassword(userId);
-        let result = await processOneUserExt(userId,passwd,conn);
+        trackProcessRecords = await fedexUtils.processOneUser(userId, passwd);
+        let result = await processOneUserExt(userId,passwd,trackProcessRecords,conn);
     }catch (ex){
         console.log ("processOneUser:exception:"+ex);
     }
     conn.destroy();
+    return trackProcessRecords;
 }
 
-var processOneUserExt = async (userId,passwd,conn)=>{
+var processOneUserExt = async (userId,passwd,trackProcessRecords,conn)=>{
     try {
-        let trackProcessRecords = await fedexUtils.processOneUser(userId, passwd);
         let dbColsMap = insertColumns(trackProcessRecords,userId);
 
         //tracking numbers
@@ -156,3 +162,4 @@ test2();
 exports.getConnect=getConnect;
 exports.processAllUsers=processAllUsers;
 exports.getPassword=getPassword;
+exports.processOneUser=processOneUser;

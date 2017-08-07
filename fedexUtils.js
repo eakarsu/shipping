@@ -41,24 +41,16 @@ let uri = "https://api-us-east-1.nd.nudatasecurity.com/1.0/w/65110/w-809838/capt
 
 //obtainCaptcha(uri);
 
-async function processOneUser(userId) {
-
-    /*
-    let userPassword = dbTools.getPassword(userId);
+async function processOneUser(userId,userPassword) {
     let loginRes = await fedexLogin(userName, userPassword);
     let newDownloadForm = prepareDownloadInputJson();
     let zipFileContent = await downloadDocument(loginRes, newDownloadForm);
     let csvFileName = await unzipReport(zipFileContent);
-    */
-    let csvFileName = "docs/FedEx_Shipment_Detail_Payer_Detail_5065426.csv";
+
     let trackRecords = collectTrackNumbers(csvFileName);
     let trackingNumbers = trackRecords.trackingNumbers;
 
-
-    let subset = trackingNumbers.slice(0,5);
-    //let processedTrackingNums = await processAllTrackingNums(trackingNumbers);
-
-    let processedTrackingNums = await processAllTrackingNums(subset);
+    let processedTrackingNums = await processAllTrackingNums(trackingNumbers);
 
     console.log("processed all:" + JSON.stringify(processedTrackingNums));
     let refunds = processedTrackingNums.filter(x => x && x.isRefundEligible);
