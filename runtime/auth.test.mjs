@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { hashPassword, issueToken, verifyPassword, verifyToken } from './auth.mjs';
+process.env.JWT_SECRET = 'runtime-test-secret-with-more-than-32-characters';
+const hash = hashPassword('correct horse battery staple');
+assert.equal(verifyPassword('correct horse battery staple', hash), true);
+assert.equal(verifyPassword('wrong', hash), false);
+const token = issueToken({ id: '7', email: 'admin@example.com', role: 'admin' });
+assert.equal(verifyToken(token).sub, '7');
+assert.equal(verifyToken(`${token}x`), null);
+console.log('Runtime authentication checks passed');
