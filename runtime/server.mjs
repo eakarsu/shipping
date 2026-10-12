@@ -1,3 +1,4 @@
+import {serveNativePromptConsole} from './serveNativePromptConsole.mjs';
 import http from 'node:http';
 import { query, sqlLiteral } from './db.mjs';
 import { issueToken, verifyPassword, verifyToken } from './auth.mjs';
@@ -21,6 +22,7 @@ function currentUser(req) {
 
 const server = http.createServer(async (req, res) => {
   try {
+      if(req.method==='GET'&&new URL(req.url,'http://localhost').pathname==='/ai-workspace')return serveNativePromptConsole(res);
     if (req.method === 'OPTIONS') return json(res, 204, {});
     if (req.method === 'GET' && req.url === '/api/health') {
       query('SELECT 1');
@@ -45,6 +47,14 @@ const server = http.createServer(async (req, res) => {
       if (!auth) return json(res, 401, { error: 'Authentication required' });
       const rows = query(`SELECT id, email, name, role FROM runtime_users WHERE id = ${Number(auth.sub)}`);
       return rows[0] ? json(res, 200, { id: rows[0][0], email: rows[0][1], name: rows[0][2], role: rows[0][3] }) : json(res, 401, { error: 'Account unavailable' });
+    }
+    if (req.method === 'GET' && req.url === '/api/runtime-ai/history') {
+      const auth = currentUser(req);
+      if (!auth) return json(res, 401, { error: 'Authentication required' });
+      const userId = Number(auth.sub);
+      if (!Number.isSafeInteger(userId) || userId < 1) return json(res, 401, { error: 'Authentication required' });
+      const rows = query(`SELECT row_to_json(saved) FROM (SELECT id, feature, response AS output, model, created_at FROM runtime_ai_results WHERE user_id = ${userId} ORDER BY created_at DESC, id DESC LIMIT 100) saved`);
+      return json(res, 200, { history: rows.map(([row]) => JSON.parse(row)) });
     }
     if (req.method === 'POST' && req.url === '/api/runtime-ai/shipping-readiness') {
       const auth = currentUser(req);
