@@ -172,4 +172,5 @@ document.getElementById('native-demo-fill').addEventListener('click',async()=>{c
 document.getElementById('native-login-form').addEventListener('submit',async event=>{event.preventDefault();document.getElementById('native-login-error').textContent='';try{const form=new FormData(event.currentTarget);const value=await request(config.loginEndpoint||'/api/auth/login',{method:'POST',body:JSON.stringify({email:form.get('email'),password:form.get('password')})});token=value.token||value.accessToken||value.access_token;if(!token)throw new Error('The native login returned no session token.');sessionStorage.setItem(config.storageKey,token);await verify();event.target.reset();}catch(error){document.getElementById('native-login-error').textContent=error.message;}});
 document.getElementById('native-signout').addEventListener('click',signout);document.getElementById('native-history-refresh').addEventListener('click',loadHistory);document.getElementById('native-history-list').addEventListener('click',event=>{const node=event.target.closest('[data-index]');if(node)historyDialog(historyRows[Number(node.dataset.index)]);});
 if(token)verify().catch(()=>signout());
-</script></body></html>
+</script><script src="../feature-pack/feature-pack.js" defer></script>
+</body></html>

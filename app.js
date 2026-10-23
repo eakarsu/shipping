@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var fundzilla = require('./routes/fundzilla');
+var wave4d = require('./routes/wave4d');
 
 var app = express();
 app.disable('x-powered-by');
@@ -20,8 +21,11 @@ app.use(bodyParser.json({ limit: '128kb' }));
 app.use(bodyParser.urlencoded({ extended: false, limit: '128kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/api/health', function(req, res) { res.json({ status: 'ok' }); });
+
 app.use('/', index);
 app.use('/fundzilla', fundzilla);
+app.use('/api/wave4d', wave4d);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
